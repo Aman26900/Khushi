@@ -750,6 +750,7 @@ const revealObserver =
               "reveal"
             );
 
+
             revealObserver.unobserve(
               entry.target
             );

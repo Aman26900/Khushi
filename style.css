@@ -2530,3 +2530,121 @@ button:active {
   }
 
 }
+
+/* =========================================================
+   ENTRY HERO DECORATIVE FILLERS
+
+   Added without changing the existing hero content,
+   animations, particle system, or surprise sections.
+========================================================= */
+
+.hero-decorations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero .eyebrow,
+.hero h1,
+.hero .subtitle,
+.hero #openBtn {
+  position: relative;
+  z-index: 3;
+}
+
+.entry-decor {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+}
+
+.entry-heart {
+  color: rgba(246, 201, 217, .20);
+  font-family: Georgia, serif;
+  font-size: 24px;
+  text-shadow: 0 0 18px rgba(197, 91, 137, .16);
+}
+
+.entry-star {
+  color: rgba(255, 230, 239, .30);
+  font-size: 16px;
+  text-shadow: 0 0 16px rgba(246, 201, 217, .18);
+}
+
+.entry-sparkle {
+  color: rgba(246, 201, 217, .22);
+  font-size: 21px;
+  text-shadow: 0 0 20px rgba(197, 91, 137, .16);
+}
+
+.entry-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(246, 201, 217, .30);
+  box-shadow: 0 0 14px rgba(246, 201, 217, .22);
+}
+
+.entry-1 { left: 9%; top: 27%; animation: entryFloatA 8s ease-in-out infinite; }
+.entry-2 { left: 19%; top: 17%; animation: entryTwinkle 4.8s ease-in-out infinite; animation-delay: -1.2s; }
+.entry-3 { left: 7%; top: 53%; animation: entryFloatB 9s ease-in-out infinite; animation-delay: -3s; }
+.entry-4 { left: 16%; top: 72%; animation: entryTwinkle 5.5s ease-in-out infinite; animation-delay: -2.1s; }
+.entry-5 { left: 28%; top: 12%; animation: entryFloatA 10s ease-in-out infinite; animation-delay: -5s; }
+.entry-6 { left: 31%; bottom: 13%; animation: entryTwinkle 5s ease-in-out infinite; animation-delay: -3.5s; }
+
+.entry-7 { right: 9%; top: 30%; animation: entryFloatB 8.5s ease-in-out infinite; animation-delay: -2s; }
+.entry-8 { right: 20%; top: 16%; animation: entryTwinkle 4.6s ease-in-out infinite; animation-delay: -2.7s; }
+.entry-9 { right: 7%; top: 55%; animation: entryFloatA 9.5s ease-in-out infinite; animation-delay: -4s; }
+.entry-10 { right: 17%; top: 73%; animation: entryTwinkle 5.2s ease-in-out infinite; animation-delay: -1.7s; }
+.entry-11 { right: 29%; top: 11%; animation: entryFloatB 10s ease-in-out infinite; animation-delay: -6s; }
+.entry-12 { right: 30%; bottom: 15%; animation: entryTwinkle 5.4s ease-in-out infinite; animation-delay: -4.2s; }
+
+.entry-13 { left: 5%; bottom: 23%; animation: entryFloatA 11s ease-in-out infinite; animation-delay: -7s; }
+.entry-14 { right: 5%; bottom: 20%; animation: entryFloatB 10.5s ease-in-out infinite; animation-delay: -5.5s; }
+
+@keyframes entryFloatA {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: .28; }
+  50% { transform: translate3d(0, -11px, 0) rotate(5deg); opacity: .62; }
+}
+
+@keyframes entryFloatB {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: .22; }
+  50% { transform: translate3d(7px, -14px, 0) rotate(-5deg); opacity: .58; }
+}
+
+@keyframes entryTwinkle {
+  0%, 100% { transform: scale(.82); opacity: .20; }
+  50% { transform: scale(1.16); opacity: .72; }
+}
+
+@media screen and (max-width: 700px) {
+  .hero-decorations {
+    inset: 0;
+  }
+
+  .entry-heart { font-size: 19px; }
+  .entry-star { font-size: 13px; }
+  .entry-sparkle { font-size: 17px; }
+  .entry-dot { width: 3px; height: 3px; }
+
+  .entry-1 { left: 5%; top: 26%; }
+  .entry-2 { left: 13%; top: 17%; }
+  .entry-3 { left: 5%; top: 58%; }
+  .entry-4 { left: 12%; top: 78%; }
+  .entry-5 { left: 25%; top: 12%; }
+  .entry-6 { left: 25%; bottom: 9%; }
+
+  .entry-7 { right: 5%; top: 29%; }
+  .entry-8 { right: 14%; top: 17%; }
+  .entry-9 { right: 5%; top: 59%; }
+  .entry-10 { right: 12%; top: 79%; }
+  .entry-11 { right: 25%; top: 12%; }
+  .entry-12 { right: 25%; bottom: 10%; }
+
+  .entry-13 { left: 4%; bottom: 24%; }
+  .entry-14 { right: 4%; bottom: 22%; }
+}
