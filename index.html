@@ -65,7 +65,7 @@
 
       <!-- ==================================
            PERSONAL MESSAGE
-      =================================== -->
+      ================================== -->
 
       <div class="card message-card">
 
@@ -103,7 +103,7 @@
 
       <!-- ==================================
            COUNTDOWN
-      =================================== -->
+      ================================== -->
 
       <div class="card">
 
@@ -151,7 +151,7 @@
 
       <!-- ==================================
            REASONS
-      =================================== -->
+      ================================== -->
 
       <div class="card reasons">
 
@@ -210,7 +210,7 @@
 
       <!-- ==================================
            MEMORIES
-      =================================== -->
+      ================================== -->
 
       <div class="card gallery">
 
@@ -222,40 +222,50 @@
           A place for our favourite moments 📸
         </h2>
 
-        <p class="small">A few moments worth remembering. ✨</p>
+        <p class="small">
+          A few moments worth remembering. ✨
+        </p>
 
 
         <div class="photo-grid">
 
           <div class="photo-placeholder">
+
             <img
               src="Pic1.jpeg"
               alt="Memory 1"
             >
+
           </div>
 
 
           <div class="photo-placeholder">
+
             <img
               src="Pic2.jpeg"
               alt="Memory 2"
             >
+
           </div>
 
 
           <div class="photo-placeholder">
+
             <img
               src="Pic3.jpeg"
               alt="Memory 3"
             >
+
           </div>
 
 
           <div class="photo-placeholder">
+
             <img
               src="Pic4.jpeg"
               alt="Memory 4"
             >
+
           </div>
 
         </div>
@@ -265,7 +275,7 @@
 
       <!-- ==================================
            FINAL MESSAGE
-      =================================== -->
+      ================================== -->
 
       <div class="final-card">
 
@@ -298,22 +308,37 @@
 
   <!-- ==================================
        PHOTO LIGHTBOX
-       Created/controlled by JavaScript
+       Hidden until a photo is clicked
   =================================== -->
 
   <div
     id="photoLightbox"
     class="photo-lightbox"
     aria-hidden="true"
+    hidden
   >
 
-   
-  
+    <button
+      id="closePhoto"
+      class="close-photo"
+      aria-label="Close photo"
+      type="button"
+    >
+      ×
+    </button>
 
-    
+    <img
+      id="lightboxImage"
+      src=""
+      alt="Expanded memory"
+    >
 
   </div>
 
+
+  <!-- ==================================
+       JAVASCRIPT
+  =================================== -->
 
   <script src="script.js"></script>
 
