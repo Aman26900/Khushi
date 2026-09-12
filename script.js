@@ -35,6 +35,19 @@ openBtn.addEventListener(
   "click",
   (event) => {
 
+    // Start birthday music
+    const birthdayAudio =
+      document.getElementById("birthdayAudio");
+
+    if (birthdayAudio) {
+      birthdayAudio.volume = 0.18;
+      birthdayAudio.currentTime = 0;
+
+      birthdayAudio.play().catch((error) => {
+        console.log("Audio could not start:", error);
+      });
+    }
+
     createRipple(event);
 
     createCinematicFlash();
