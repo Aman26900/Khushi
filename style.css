@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
 
 :root {
-  --bg-dark: #08050a;
-  --bg-mid: #170b18;
-  --soft-white: rgba(255,255,255,.9);
-  --muted-white: rgba(255,255,255,.62);
-  --border: rgba(255,255,255,.14);
-  --shadow: rgba(0,0,0,.45);
+  --bg1: #08050a;
+  --bg2: #170b18;
+  --white: rgba(255,255,255,.94);
+  --muted: rgba(255,255,255,.62);
+  --border: rgba(255,255,255,.15);
+  --pink: rgba(198,93,140,.20);
 }
 
 * {
@@ -21,509 +21,312 @@ html {
 
 body {
   min-height: 100vh;
-
-  color: #fff;
-
-  background:
-    radial-gradient(
-      circle at 50% -10%,
-      rgba(145,48,94,.34),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 0% 45%,
-      rgba(90,31,67,.18),
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at 100% 70%,
-      rgba(105,36,78,.15),
-      transparent 34%
-    ),
-    linear-gradient(
-      145deg,
-      var(--bg-dark),
-      var(--bg-mid) 48%,
-      #090509
-    );
-
-  font-family:
-    "Montserrat",
-    Arial,
-    sans-serif;
-
+  color: white;
+  font-family: "Montserrat", Arial, sans-serif;
   overflow-x: hidden;
-
+  background:
+    radial-gradient(circle at 50% -10%, rgba(155,48,95,.40), transparent 34%),
+    radial-gradient(circle at 0% 50%, rgba(100,30,70,.18), transparent 35%),
+    radial-gradient(circle at 100% 70%, rgba(120,35,80,.14), transparent 35%),
+    linear-gradient(145deg, var(--bg1), var(--bg2) 50%, #080408);
   position: relative;
 }
 
-/* =========================================
+/* =========================
    CINEMATIC GRAIN
-========================================= */
+========================= */
 
 body::before {
   content: "";
-
   position: fixed;
-
   inset: 0;
-
   pointer-events: none;
-
-  z-index: 999;
-
+  z-index: 9999;
   opacity: .025;
-
   background-image:
     url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
 }
 
-/* =========================================
-   AMBIENT GLOW
-========================================= */
+/* =========================
+   AMBIENT LIGHT
+========================= */
 
 body::after {
   content: "";
-
   position: fixed;
-
   width: 600px;
   height: 600px;
-
-  border-radius: 50%;
-
-  top: -300px;
+  top: -310px;
   left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  background:
-    rgba(174,62,112,.12);
-
-  filter:
-    blur(110px);
-
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(180,65,115,.14);
+  filter: blur(120px);
   pointer-events: none;
-
   z-index: -1;
 }
 
-/* =========================================
+/* =========================
    MAIN
-========================================= */
+========================= */
 
 main {
-  width:
-    min(100%, 1050px);
-
-  margin:
-    auto;
-
-  padding:
-    25px
-    18px
-    90px;
+  width: min(100%, 1050px);
+  margin: auto;
+  padding: 25px 18px 100px;
 }
 
-/* =========================================
+/* =========================
    HERO
-========================================= */
+========================= */
 
 .hero {
   min-height: 94vh;
-
   display: flex;
-
   flex-direction: column;
-
-  align-items: center;
-
   justify-content: center;
-
+  align-items: center;
   text-align: center;
-
   position: relative;
+  padding: 25px;
+  transition:
+    opacity 1.1s cubic-bezier(.22,1,.36,1),
+    transform 1.1s cubic-bezier(.22,1,.36,1),
+    filter 1.1s ease;
+}
 
-  padding: 20px;
+.hero.hero-fade {
+  opacity: 0;
+  transform: translateY(-45px) scale(.97);
+  filter: blur(5px);
+  pointer-events: none;
 }
 
 .hero::before {
   content: "";
-
   position: absolute;
-
-  width: 420px;
-  height: 420px;
-
+  width: 430px;
+  height: 430px;
   border-radius: 50%;
-
-  background:
-    rgba(156,52,105,.09);
-
-  filter:
-    blur(80px);
-
+  background: rgba(160,55,105,.10);
+  filter: blur(75px);
   z-index: -1;
+}
+
+.hero::after {
+  content: "✦";
+  position: absolute;
+  bottom: 8%;
+  font-size: 14px;
+  opacity: .28;
+  animation: floatSymbol 3.5s ease-in-out infinite;
 }
 
 .eyebrow {
   text-transform: uppercase;
-
   letter-spacing: 4px;
-
   font-size: .68rem;
-
   font-weight: 500;
-
   opacity: .58;
-
   margin-bottom: 20px;
+}
 
-  animation:
-    fadeUp
-    1.2s
-    ease
-    both;
+.hero .eyebrow {
+  animation: openingEyebrow 1.1s .15s both;
 }
 
 h1,
 h2,
 h3 {
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
+  font-family: "Cormorant Garamond", Georgia, serif;
 }
 
 h1 {
-  font-size:
-    clamp(
-      3.5rem,
-      10vw,
-      7.3rem
-    );
-
+  font-size: clamp(3.5rem, 10vw, 7.3rem);
   line-height: .86;
-
   font-weight: 500;
-
   letter-spacing: -2px;
-
-  text-shadow:
-    0 10px 45px
-    rgba(0,0,0,.3);
-
-  animation:
-    heroTitle
-    1.4s
-    cubic-bezier(.22,1,.36,1)
-    both;
+  text-shadow: 0 15px 55px rgba(0,0,0,.35);
+  animation: openingTitle 1.4s .35s both;
 }
 
 h1 span {
   display: inline-block;
-
   font-style: italic;
-
   background:
     linear-gradient(
       135deg,
-      #fff 15%,
-      #f6c9d9 55%,
-      #c989a5 100%
+      #fff 12%,
+      #f8d2df 55%,
+      #c88ba6 100%
     );
-
   -webkit-background-clip: text;
-
   background-clip: text;
-
   -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-  margin:
-    32px
-    0
-    34px;
-
+  margin: 32px 0 34px;
   font-size: .68rem;
-
   letter-spacing: 8px;
-
   text-transform: uppercase;
-
-  color:
-    rgba(255,255,255,.62);
-
-  animation:
-    fadeUp
-    1.5s
-    .25s
-    ease
-    both;
+  color: rgba(255,255,255,.62);
+  animation: openingSubtitle 1.2s .65s both;
 }
 
-.hero::after {
-  content: "✦";
+/* =========================
+   MAIN BUTTON
+========================= */
 
-  position: absolute;
-
-  bottom: 8%;
-
-  font-size: 13px;
-
-  opacity: .35;
-
-  animation:
-    floatSymbol
-    4s
-    ease-in-out
-    infinite;
-}
-
-/* =========================================
-   BUTTON
-========================================= */
-
-button {
+#openBtn {
   position: relative;
-
   overflow: hidden;
-
-  border:
-    1px solid
-    rgba(255,255,255,.26);
-
+  border: 1px solid rgba(255,255,255,.28);
   border-radius: 999px;
-
-  padding:
-    16px
-    30px;
-
+  padding: 16px 31px;
   color: #fff;
-
   background:
     linear-gradient(
       120deg,
-      rgba(255,255,255,.08),
-      rgba(255,255,255,.14),
+      rgba(255,255,255,.07),
+      rgba(255,255,255,.15),
       rgba(255,255,255,.07)
     );
-
-  backdrop-filter:
-    blur(14px);
-
-  -webkit-backdrop-filter:
-    blur(14px);
-
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   box-shadow:
-    0 12px 35px
-    rgba(0,0,0,.25),
-
-    inset 0 1px 0
-    rgba(255,255,255,.08);
-
-  font:
-    500 .72rem
-    "Montserrat",
-    sans-serif;
-
-  letter-spacing:
-    1.5px;
-
+    0 14px 38px rgba(0,0,0,.30),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 0 0 rgba(200,90,140,0);
+  font: 500 .72rem "Montserrat", sans-serif;
+  letter-spacing: 1.5px;
   cursor: pointer;
-
+  animation:
+    buttonEntrance 1.25s .85s both,
+    buttonGlow 3s 2.2s ease-in-out infinite;
   transition:
     transform .35s ease,
     box-shadow .35s ease,
     background .35s ease;
-
-  animation:
-    fadeUp
-    1.5s
-    .45s
-    ease
-    both;
 }
 
-button::before {
+#openBtn::before {
   content: "";
-
   position: absolute;
-
   top: 0;
-
   left: -120%;
-
-  width: 80%;
-
+  width: 90%;
   height: 100%;
-
-  transform:
-    skewX(-25deg);
-
+  transform: skewX(-25deg);
   background:
     linear-gradient(
       90deg,
       transparent,
-      rgba(255,255,255,.18),
+      rgba(255,255,255,.28),
       transparent
     );
-
-  transition:
-    left .7s ease;
+  animation: buttonShine 3.5s 2s ease-in-out infinite;
 }
 
-button:hover::before {
-  left: 150%;
-}
-
-button:hover {
-  transform:
-    translateY(-4px)
-    scale(1.025);
-
-  background:
-    rgba(255,255,255,.12);
-
+#openBtn:hover {
+  transform: translateY(-5px) scale(1.035);
   box-shadow:
-    0 18px 50px
-    rgba(0,0,0,.35),
-
-    0 0 35px
-    rgba(188,87,133,.09);
+    0 22px 55px rgba(0,0,0,.36),
+    0 0 35px rgba(195,90,137,.16);
 }
 
-button:active {
-  transform:
-    translateY(-1px)
-    scale(.99);
+#openBtn:active {
+  transform: scale(.98);
 }
 
-/* =========================================
+#openBtn:disabled {
+  cursor: default;
+}
+
+/* =========================
    HIDDEN
-========================================= */
+========================= */
 
 .hidden {
   display: none;
 }
 
-/* =========================================
-   CARDS
-========================================= */
+/* =========================
+   CONTENT CARDS
+========================= */
 
 .card,
 .final-card {
   position: relative;
-
-  margin:
-    26px
-    auto;
-
-  padding:
-    48px
-    34px;
-
-  border:
-    1px solid
-    var(--border);
-
+  margin: 26px auto;
+  padding: 48px 34px;
+  border: 1px solid var(--border);
   border-radius: 30px;
-
   background:
     linear-gradient(
       145deg,
       rgba(255,255,255,.075),
       rgba(255,255,255,.025)
     );
-
-  backdrop-filter:
-    blur(20px);
-
-  -webkit-backdrop-filter:
-    blur(20px);
-
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow:
-    0 25px 70px
-    var(--shadow),
-
-    inset 0 1px 0
-    rgba(255,255,255,.06);
-
+    0 25px 70px rgba(0,0,0,.42),
+    inset 0 1px 0 rgba(255,255,255,.06);
   text-align: center;
 
+  /* IMPORTANT:
+     hidden before the JS reveal */
   opacity: 0;
-
   transform:
-    translateY(45px);
+    translateY(70px)
+    scale(.94);
 
   transition:
-    opacity .9s ease,
-
-    transform .9s
-    cubic-bezier(.22,1,.36,1),
-
-    border-color .35s ease;
+    opacity .9s cubic-bezier(.22,1,.36,1),
+    transform 1s cubic-bezier(.22,1,.36,1);
 }
 
 .card.reveal,
 .final-card.reveal {
   opacity: 1;
-
   transform:
-    translateY(0);
+    translateY(0)
+    scale(1);
 }
 
 .card::before,
 .final-card::before {
   content: "";
-
   position: absolute;
-
   inset: 1px;
-
   border-radius: inherit;
-
   pointer-events: none;
-
   background:
     linear-gradient(
       120deg,
-      rgba(255,255,255,.045),
-      transparent 30%,
+      rgba(255,255,255,.05),
+      transparent 35%,
       transparent 70%,
-      rgba(255,255,255,.025)
+      rgba(255,255,255,.02)
     );
 }
 
 .card:hover {
-  border-color:
-    rgba(255,255,255,.21);
+  border-color: rgba(255,255,255,.22);
 }
+
+/* =========================
+   HEADINGS
+========================= */
 
 .card h2 {
   position: relative;
-
-  font-size:
-    clamp(
-      2.15rem,
-      5vw,
-      3.65rem
-    );
-
+  font-size: clamp(2.15rem, 5vw, 3.65rem);
   line-height: .98;
-
   font-weight: 500;
-
   margin-bottom: 22px;
-
-  letter-spacing: -.5px;
 }
-
-/* =========================================
-   MESSAGE
-========================================= */
 
 .message-card {
   max-width: 780px;
@@ -531,634 +334,337 @@ button:active {
 
 .message-card .sparkle {
   font-size: 1.65rem;
-
   margin-bottom: 18px;
-
   opacity: .7;
-
-  animation:
-    sparklePulse
-    2.5s
-    ease-in-out
-    infinite;
+  animation: sparklePulse 2.7s ease-in-out infinite;
 }
 
-.message-card
-p:not(.eyebrow):not(.signature) {
-
-  position: relative;
-
+.message-card p:not(.eyebrow):not(.signature) {
   font-family:
     "Cormorant Garamond",
     Georgia,
     serif;
-
-  font-size:
-    1.42rem;
-
-  line-height:
-    1.65;
-
-  color:
-    rgba(255,255,255,.83);
-
-  margin:
-    17px
-    auto;
-
-  max-width:
-    670px;
+  font-size: 1.42rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,.83);
+  margin: 17px auto;
+  max-width: 670px;
 }
 
 .signature {
-  margin-top:
-    30px !important;
-
+  margin-top: 30px !important;
   font-family:
     "Cormorant Garamond",
     Georgia,
     serif;
-
-  font-size:
-    1.35rem;
-
-  line-height:
-    1.5;
-
-  color:
-    rgba(255,255,255,.86);
+  font-size: 1.35rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,.88);
 }
 
 .signature strong {
   font-weight: 600;
 }
 
-/* =========================================
+/* =========================
    COUNTDOWN
-========================================= */
+========================= */
 
 .countdown {
   display: grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
-  gap:
-    12px;
-
-  max-width:
-    700px;
-
-  margin:
-    30px
-    auto
-    17px;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+  max-width: 700px;
+  margin: 30px auto 17px;
 }
 
 .countdown div {
   position: relative;
-
-  padding:
-    21px
-    8px
-    18px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.11);
-
-  border-radius:
-    20px;
-
-  background:
-    rgba(0,0,0,.16);
-
+  padding: 21px 8px 18px;
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: 20px;
+  background: rgba(0,0,0,.16);
   box-shadow:
-    inset 0 1px 0
-    rgba(255,255,255,.035);
-
+    inset 0 1px 0 rgba(255,255,255,.035);
   transition:
     transform .3s ease,
     border-color .3s ease;
 }
 
 .countdown div:hover {
-
-  transform:
-    translateY(-4px);
-
-  border-color:
-    rgba(255,255,255,.2);
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,.22);
 }
 
 .countdown strong {
-
   display: block;
-
   font:
-    600
-    clamp(
-      2rem,
-      6vw,
-      3.3rem
-    )
+    600 clamp(2rem,6vw,3.3rem)
     "Cormorant Garamond",
     Georgia,
     serif;
-
-  line-height:
-    1;
+  line-height: 1;
 }
 
 .countdown span {
-
   display: block;
-
-  margin-top:
-    8px;
-
-  font-size:
-    .58rem;
-
-  text-transform:
-    uppercase;
-
-  letter-spacing:
-    2px;
-
-  opacity:
-    .5;
+  margin-top: 8px;
+  font-size: .58rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: .5;
 }
 
 .small {
-
-  font-size:
-    .72rem;
-
-  line-height:
-    1.7;
-
-  color:
-    var(--muted-white);
+  font-size: .72rem;
+  line-height: 1.7;
+  color: var(--muted);
 }
 
-/* =========================================
+/* =========================
    REASONS
-========================================= */
+========================= */
 
 .reason-grid {
-
   display: grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:
-    15px;
-
-  text-align:
-    left;
-
-  margin-top:
-    10px;
+  grid-template-columns: repeat(3,1fr);
+  gap: 15px;
+  text-align: left;
+  margin-top: 10px;
 }
 
 .reason-grid div {
-
   position: relative;
-
-  padding:
-    27px
-    24px
-    24px;
-
-  min-height:
-    190px;
-
-  overflow:
-    hidden;
-
-  border:
-    1px solid
-    rgba(255,255,255,.08);
-
-  border-radius:
-    22px;
-
-  background:
-    rgba(0,0,0,.13);
-
+  padding: 27px 24px 24px;
+  min-height: 190px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 22px;
+  background: rgba(0,0,0,.13);
   transition:
-    transform .4s
-      cubic-bezier(.22,1,.36,1),
-
+    transform .4s cubic-bezier(.22,1,.36,1),
     border-color .3s ease;
 }
 
-.reason-grid div::after {
-
-  content: "";
-
-  position: absolute;
-
-  width:
-    130px;
-
-  height:
-    130px;
-
-  border-radius:
-    50%;
-
-  right:
-    -65px;
-
-  bottom:
-    -65px;
-
-  background:
-    rgba(194,87,133,.08);
-
-  filter:
-    blur(25px);
-}
-
 .reason-grid div:hover {
-
-  transform:
-    translateY(-6px);
-
-  border-color:
-    rgba(255,255,255,.18);
+  transform: translateY(-7px);
+  border-color: rgba(255,255,255,.20);
 }
 
 .reason-grid span {
-
-  font-size:
-    .64rem;
-
-  letter-spacing:
-    2px;
-
-  opacity:
-    .38;
+  font-size: .64rem;
+  letter-spacing: 2px;
+  opacity: .38;
 }
 
 .reason-grid h3 {
-
-  font-size:
-    1.95rem;
-
-  font-weight:
-    500;
-
-  margin:
-    8px
-    0
-    9px;
+  font-size: 1.95rem;
+  font-weight: 500;
+  margin: 8px 0 9px;
 }
 
 .reason-grid p {
-
-  font-size:
-    .79rem;
-
-  line-height:
-    1.65;
-
-  color:
-    rgba(255,255,255,.61);
+  font-size: .79rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,.61);
 }
 
-/* =========================================
-   MEMORY GALLERY
-========================================= */
+/* =========================
+   GALLERY
+========================= */
 
 .photo-grid {
-
   display: grid;
-
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-
-  gap:
-    18px;
-
-  margin-top:
-    27px;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 18px;
+  margin-top: 27px;
 }
 
-
 /*
-   FIXED PHOTO FRAME
-
-   All four cards now have the
-   exact same dimensions.
+   SAME SIZE FOR ALL 4 PHOTOS
 */
 
 .photo-placeholder {
-
   position: relative;
-
   width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  /*
-     This is the important part.
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 24px;
 
-     Every photo frame has the
-     exact same ratio.
-  */
-
-  aspect-ratio:
-    4 / 5;
-
-  overflow:
-    hidden;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  border:
-    1px solid
-    rgba(255,255,255,.18);
-
-  border-radius:
-    24px;
-
-  background:
-    #100a10;
+  background: rgba(7,4,8,.75);
 
   box-shadow:
+    0 18px 45px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.06);
 
-    0 18px 45px
-    rgba(0,0,0,.35),
+  isolation: isolate;
 
-    inset 0 1px 0
-    rgba(255,255,255,.06);
+  cursor: zoom-in;
 
-  isolation:
-    isolate;
+  /*
+     Photo-specific reveal
+  */
+
+  opacity: 0;
+  transform:
+    translateY(35px)
+    scale(.93);
 
   transition:
-
-    transform .45s
-      cubic-bezier(.22,1,.36,1),
-
+    opacity .75s cubic-bezier(.22,1,.36,1),
+    transform .85s cubic-bezier(.22,1,.36,1),
     border-color .35s ease,
-
     box-shadow .35s ease;
 }
 
-
-/* =========================================
-   BLURRED BACKGROUND
-========================================= */
-
-/*
-   The actual photo stays fully visible
-   in front.
-
-   The same image is blurred behind
-   to fill the remaining frame.
-*/
-
-.photo-placeholder:nth-child(1)::after,
-.photo-placeholder:nth-child(2)::after,
-.photo-placeholder:nth-child(3)::after,
-.photo-placeholder:nth-child(4)::after {
-
-  content: "";
-
-  position: absolute;
-
-  inset:
-    -30px;
-
-  z-index:
-    -2;
-
-  background-repeat:
-    no-repeat;
-
-  background-size:
-    cover;
-
-  background-position:
-    center;
-
-  filter:
-    blur(24px);
-
+.photo-placeholder.photo-reveal {
+  opacity: 1;
   transform:
-    scale(1.12);
-
-  opacity:
-    .55;
-
+    translateY(0)
+    scale(1);
 }
 
+/* Individual photo timing */
 
-/*
-   Individual background photos.
-*/
-
-.photo-placeholder:nth-child(1)::after {
-
-  background-image:
-    url("Pic1.jpeg");
+.photo-placeholder:nth-child(1).photo-reveal {
+  transition-delay: 0s;
 }
 
-.photo-placeholder:nth-child(2)::after {
-
-  background-image:
-    url("Pic2.jpeg");
+.photo-placeholder:nth-child(2).photo-reveal {
+  transition-delay: .13s;
 }
 
-.photo-placeholder:nth-child(3)::after {
-
-  background-image:
-    url("Pic3.jpeg");
+.photo-placeholder:nth-child(3).photo-reveal {
+  transition-delay: .26s;
 }
 
-.photo-placeholder:nth-child(4)::after {
-
-  background-image:
-    url("Pic4.jpeg");
+.photo-placeholder:nth-child(4).photo-reveal {
+  transition-delay: .39s;
 }
 
+/* =========================
+   BLURRED BACKGROUND
+========================= */
 
-/* =========================================
-   DARK GLASS OVER BACKGROUND
-========================================= */
+.photo-placeholder .photo-bg {
+  position: absolute;
+  inset: -25px;
 
-.photo-placeholder {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
-  background:
-    rgba(10,6,10,.52);
+  filter: blur(25px);
+  transform: scale(1.12);
+
+  opacity: .48;
+
+  z-index: -2;
 }
 
-.photo-placeholder::marker {
-  display:
-    none;
-}
-
-
-/* =========================================
-   ACTUAL PHOTO
-========================================= */
+/* =========================
+   PHOTO
+========================= */
 
 .photo-placeholder img {
+  position: relative;
+  z-index: 2;
 
-  position:
-    relative;
+  display: block;
 
-  z-index:
-    2;
+  max-width: calc(100% - 16px);
+  max-height: calc(100% - 16px);
 
-  display:
-    block;
+  width: auto;
+  height: auto;
 
-  /*
-     FULL PHOTO
-  */
+  object-fit: contain;
 
-  max-width:
-    calc(100% - 16px);
-
-  max-height:
-    calc(100% - 16px);
-
-  width:
-    auto;
-
-  height:
-    auto;
-
-  /*
-     Most important setting:
-
-     contain = complete image visible
-     no stretching
-     no cropping
-  */
-
-  object-fit:
-    contain;
-
-  object-position:
-    center;
-
-  border-radius:
-    16px;
+  border-radius: 16px;
 
   box-shadow:
-
-    0 10px 35px
-    rgba(0,0,0,.48);
+    0 12px 40px rgba(0,0,0,.48);
 
   transition:
-
-    transform .7s
-      cubic-bezier(.22,1,.36,1),
-
-    filter .5s ease;
+    transform .8s cubic-bezier(.22,1,.36,1),
+    filter .45s ease;
 }
-
-
-/* =========================================
-   SOFT FRONT OVERLAY
-========================================= */
-
-.photo-placeholder::before {
-
-  content:
-    "♡";
-
-  position:
-    absolute;
-
-  top:
-    16px;
-
-  right:
-    18px;
-
-  z-index:
-    4;
-
-  color:
-    rgba(255,255,255,.95);
-
-  font-size:
-    1.18rem;
-
-  text-shadow:
-    0 2px 12px
-    rgba(0,0,0,.65);
-
-  pointer-events:
-    none;
-}
-
-
-/* =========================================
-   HOVER
-========================================= */
 
 .photo-placeholder:hover {
-
   transform:
-    translateY(-7px);
+    translateY(-7px)
+    scale(1.01);
 
   border-color:
     rgba(255,255,255,.32);
 
   box-shadow:
-
-    0 28px 60px
-    rgba(0,0,0,.45),
-
-    0 0 25px
-    rgba(190,90,135,.08);
+    0 28px 65px rgba(0,0,0,.45);
 }
 
 .photo-placeholder:hover img {
-
-  transform:
-    scale(1.025);
-
-  filter:
-    brightness(1.05);
+  transform: scale(1.035);
+  filter: brightness(1.05);
 }
 
+/* =========================
+   PHOTO HEART
+========================= */
 
-/* =========================================
+.photo-placeholder::before {
+  content: "♡";
+
+  position: absolute;
+
+  top: 17px;
+  right: 18px;
+
+  z-index: 4;
+
+  color:
+    rgba(255,255,255,.95);
+
+  font-size: 1.2rem;
+
+  text-shadow:
+    0 2px 14px rgba(0,0,0,.7);
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  transform: translateY(-8px);
+
+  transition:
+    opacity .4s ease,
+    transform .4s ease;
+}
+
+.photo-placeholder.photo-reveal::before {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
    FINAL CARD
-========================================= */
+========================= */
 
 .final-card {
+  margin-top: 40px;
 
   padding:
-    72px
+    76px
     28px;
 
-  margin-top:
-    35px;
-
-  overflow:
-    hidden;
-
   background:
-
     radial-gradient(
       circle at 50% 25%,
-      rgba(155,48,95,.18),
+      rgba(155,48,95,.20),
       transparent 50%
     ),
 
@@ -1169,173 +675,99 @@ p:not(.eyebrow):not(.signature) {
     );
 }
 
-.final-card::after {
-
-  content:
-    "";
-
-  position:
-    absolute;
-
-  width:
-    280px;
-
-  height:
-    280px;
-
-  border-radius:
-    50%;
-
-  top:
-    -150px;
-
-  left:
-    50%;
-
-  transform:
-    translateX(-50%);
-
-  background:
-    rgba(192,71,122,.08);
-
-  filter:
-    blur(65px);
-}
-
 .big-heart {
+  position: relative;
 
-  position:
-    relative;
+  z-index: 2;
 
-  z-index:
-    2;
+  font-size: 4.3rem;
 
-  font-size:
-    4.2rem;
-
-  line-height:
-    1;
+  line-height: 1;
 
   color:
-    rgba(255,255,255,.92);
+    rgba(255,255,255,.93);
 
   text-shadow:
+    0 0 25px rgba(200,90,140,.48),
+    0 0 60px rgba(200,90,140,.22);
 
-    0 0 25px
-    rgba(199,91,139,.45),
+  opacity: 0;
+  transform: scale(.45);
 
-    0 0 55px
-    rgba(199,91,139,.18);
+  animation: none;
+}
 
+.final-card.reveal .big-heart {
   animation:
-    heartBeat
-    1.8s
-    ease-in-out
-    infinite;
+    heartAppear 1.2s .3s cubic-bezier(.22,1,.36,1) forwards,
+    heartPulse 2.8s 1.6s ease-in-out infinite;
 }
 
 .final-card h2 {
-
-  position:
-    relative;
-
-  z-index:
-    2;
-
+  position: relative;
+  z-index: 2;
   font-size:
     clamp(
       2.7rem,
       7vw,
       4.4rem
     );
-
-  font-weight:
-    500;
-
-  margin:
-    18px
-    0;
+  font-weight: 500;
+  margin: 18px 0;
 }
 
 .final-card p {
-
-  position:
-    relative;
-
-  z-index:
-    2;
+  position: relative;
+  z-index: 2;
 
   font-family:
     "Cormorant Garamond",
     Georgia,
     serif;
 
-  font-size:
-    1.42rem;
+  font-size: 1.42rem;
 
-  line-height:
-    1.6;
+  line-height: 1.6;
 
   color:
     rgba(255,255,255,.77);
 
   margin:
-    12px
-    auto;
+    12px auto;
 
-  max-width:
-    670px;
+  max-width: 670px;
 }
 
 .final-line {
-
-  font-style:
-    italic;
+  font-style: italic;
 
   color:
-    rgba(255,255,255,.87)
-    !important;
+    rgba(255,255,255,.88) !important;
 }
 
-/* =========================================
-   FLOATING HEARTS
-========================================= */
+/* =========================
+   BACKGROUND PARTICLES
+========================= */
 
 .hearts {
-
-  position:
-    fixed;
-
-  inset:
-    0;
-
-  overflow:
-    hidden;
-
-  pointer-events:
-    none;
-
-  z-index:
-    5;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
 }
 
 .heart {
-
-  position:
-    fixed;
-
-  bottom:
-    -30px;
-
-  pointer-events:
-    none;
+  position: fixed;
+  bottom: -30px;
+  pointer-events: none;
 
   color:
-    rgba(255,255,255,.4);
+    rgba(255,255,255,.38);
 
   animation:
     floatHeart
-    7s
+    8s
     linear
     forwards;
 
@@ -1346,30 +778,176 @@ p:not(.eyebrow):not(.signature) {
     );
 }
 
-/* =========================================
+/* =========================
+   CINEMATIC TRANSITION
+   Created by JS
+========================= */
+
+.cinematic-flash {
+  position: fixed;
+  inset: 0;
+
+  z-index: 1500;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255,255,255,.18),
+      rgba(180,65,115,.10) 30%,
+      transparent 65%
+    );
+
+  animation:
+    cinematicFlash
+    1.2s
+    ease-out
+    forwards;
+}
+
+
+/* =========================
+   LIGHTBOX
+========================= */
+
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+
+  z-index: 3000;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  background:
+    rgba(3,2,5,.94);
+
+  backdrop-filter:
+    blur(20px);
+
+  -webkit-backdrop-filter:
+    blur(20px);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity .35s ease,
+    visibility .35s ease;
+}
+
+.photo-lightbox.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.photo-lightbox img {
+  max-width: 92vw;
+  max-height: 88vh;
+
+  width: auto;
+  height: auto;
+
+  object-fit: contain;
+
+  border-radius: 15px;
+
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.7);
+
+  transform:
+    scale(.92);
+
+  transition:
+    transform .5s
+    cubic-bezier(.22,1,.36,1);
+}
+
+.photo-lightbox.active img {
+  transform:
+    scale(1);
+}
+
+.close-photo {
+  position: absolute;
+
+  top: 24px;
+  right: 28px;
+
+  width: 45px;
+  height: 45px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    rgba(255,255,255,.22);
+
+  border-radius: 50%;
+
+  color: white;
+
+  background:
+    rgba(255,255,255,.08);
+
+  font-size: 27px;
+  font-weight: 300;
+
+  cursor: pointer;
+
+  transition:
+    transform .3s ease,
+    background .3s ease;
+}
+
+.close-photo:hover {
+  transform:
+    rotate(90deg);
+
+  background:
+    rgba(255,255,255,.16);
+}
+
+/* =========================
    ANIMATIONS
-========================================= */
+========================= */
 
-@keyframes heroTitle {
-
+@keyframes openingEyebrow {
   from {
-
-    opacity:
-      0;
-
-    transform:
-      translateY(30px)
-      scale(.97);
-
-    filter:
-      blur(8px);
+    opacity: 0;
+    transform: translateY(25px);
+    filter: blur(5px);
   }
 
   to {
+    opacity: .58;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
 
-    opacity:
-      1;
+@keyframes openingTitle {
+  from {
+    opacity: 0;
+    transform:
+      translateY(45px)
+      scale(.92);
 
+    filter:
+      blur(10px);
+  }
+
+  to {
+    opacity: 1;
     transform:
       translateY(0)
       scale(1);
@@ -1379,196 +957,205 @@ p:not(.eyebrow):not(.signature) {
   }
 }
 
-@keyframes fadeUp {
-
+@keyframes openingSubtitle {
   from {
-
-    opacity:
-      0;
-
-    transform:
-      translateY(18px);
+    opacity: 0;
+    transform: translateY(20px);
   }
 
   to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    opacity:
-      1;
-
+@keyframes buttonEntrance {
+  from {
+    opacity: 0;
     transform:
-      translateY(0);
+      translateY(22px)
+      scale(.92);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+@keyframes buttonGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 14px 38px rgba(0,0,0,.30),
+      inset 0 1px 0 rgba(255,255,255,.08);
+  }
+
+  50% {
+    box-shadow:
+      0 16px 42px rgba(0,0,0,.30),
+      0 0 28px rgba(195,90,137,.12),
+      inset 0 1px 0 rgba(255,255,255,.08);
+  }
+}
+
+@keyframes buttonShine {
+  0% {
+    left: -120%;
+  }
+
+  25% {
+    left: 150%;
+  }
+
+  100% {
+    left: 150%;
   }
 }
 
 @keyframes sparklePulse {
-
-  0%, 100% {
-
-    opacity:
-      .45;
-
-    transform:
-      scale(1);
+  0%,
+  100% {
+    opacity: .40;
+    transform: scale(1);
   }
 
   50% {
-
-    opacity:
-      1;
-
-    transform:
-      scale(1.18);
-  }
-}
-
-@keyframes heartBeat {
-
-  0%, 100% {
-
-    transform:
-      scale(1);
-  }
-
-  15% {
-
-    transform:
-      scale(1.07);
-  }
-
-  30% {
-
-    transform:
-      scale(1);
-  }
-
-  45% {
-
-    transform:
-      scale(1.1);
-  }
-
-  60% {
-
-    transform:
-      scale(1);
+    opacity: 1;
+    transform: scale(1.18);
   }
 }
 
 @keyframes floatHeart {
-
   0% {
-
     transform:
       translateY(0)
       translateX(0)
       rotate(0deg)
       scale(.8);
 
-    opacity:
-      0;
+    opacity: 0;
   }
 
-  10% {
-
-    opacity:
-      .65;
+  12% {
+    opacity: .55;
   }
 
   50% {
-
     transform:
       translateY(-55vh)
-      translateX(20px)
-      rotate(120deg)
+      translateX(18px)
+      rotate(90deg)
       scale(1);
   }
 
   100% {
-
     transform:
       translateY(-115vh)
-      translateX(-35px)
-      rotate(300deg)
-      scale(.7);
+      translateX(-25px)
+      rotate(220deg)
+      scale(.75);
 
-    opacity:
-      0;
+    opacity: 0;
   }
 }
 
 @keyframes floatSymbol {
-
-  0%, 100% {
-
-    transform:
-      translateY(0);
-
-    opacity:
-      .25;
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: .25;
   }
 
   50% {
+    transform: translateY(-10px);
+    opacity: .55;
+  }
+}
 
+@keyframes cinematicFlash {
+  0% {
+    opacity: 0;
+  }
+
+  22% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes heartAppear {
+  0% {
+    opacity: 0;
     transform:
-      translateY(-10px);
+      scale(.4)
+      translateY(15px);
+  }
 
-    opacity:
-      .55;
+  65% {
+    opacity: 1;
+    transform:
+      scale(1.12)
+      translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      scale(1)
+      translateY(0);
+  }
+}
+
+@keyframes heartPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.07);
   }
 }
 
 @keyframes rippleEffect {
-
   from {
-
-    width:
-      10px;
-
-    height:
-      10px;
-
-    opacity:
-      .8;
+    width: 10px;
+    height: 10px;
+    opacity: .8;
   }
 
   to {
-
-    width:
-      260px;
-
-    height:
-      260px;
-
-    opacity:
-      0;
+    width: 320px;
+    height: 320px;
+    opacity: 0;
   }
 }
 
-/* =========================================
+/* =========================
    MOBILE
-========================================= */
+========================= */
 
 @media (max-width: 700px) {
 
   main {
-
     padding:
       15px
       13px
-      70px;
+      75px;
   }
 
   .hero {
-
-    min-height:
-      88vh;
-
-    padding:
-      18px;
+    min-height: 88vh;
+    padding: 18px;
   }
 
   h1 {
-
     font-size:
       clamp(
         3rem,
@@ -1581,7 +1168,6 @@ p:not(.eyebrow):not(.signature) {
   }
 
   .eyebrow {
-
     font-size:
       .58rem;
 
@@ -1590,7 +1176,6 @@ p:not(.eyebrow):not(.signature) {
   }
 
   .subtitle {
-
     margin:
       26px
       0
@@ -1605,7 +1190,6 @@ p:not(.eyebrow):not(.signature) {
 
   .card,
   .final-card {
-
     padding:
       34px
       18px;
@@ -1616,7 +1200,6 @@ p:not(.eyebrow):not(.signature) {
 
   .message-card
   p:not(.eyebrow):not(.signature) {
-
     font-size:
       1.27rem;
 
@@ -1624,18 +1207,12 @@ p:not(.eyebrow):not(.signature) {
       1.6;
   }
 
-  /* ================================
-     COUNTDOWN
-  ================================ */
-
   .countdown {
-
     gap:
       7px;
   }
 
   .countdown div {
-
     padding:
       16px
       5px
@@ -1646,7 +1223,6 @@ p:not(.eyebrow):not(.signature) {
   }
 
   .countdown span {
-
     font-size:
       .49rem;
 
@@ -1654,28 +1230,19 @@ p:not(.eyebrow):not(.signature) {
       1px;
   }
 
-  /* ================================
-     REASONS
-  ================================ */
-
   .reason-grid {
-
     grid-template-columns:
       1fr;
   }
 
   .reason-grid div {
-
     min-height:
       auto;
   }
 
-  /* ================================
-     MOBILE GALLERY
-  ================================ */
+  /* Mobile gallery */
 
   .photo-grid {
-
     grid-template-columns:
       1fr;
 
@@ -1683,16 +1250,7 @@ p:not(.eyebrow):not(.signature) {
       16px;
   }
 
-  /*
-     Same size for all photos
-     on mobile too.
-  */
-
   .photo-placeholder {
-
-    width:
-      100%;
-
     aspect-ratio:
       4 / 5;
 
@@ -1701,46 +1259,52 @@ p:not(.eyebrow):not(.signature) {
   }
 
   .photo-placeholder img {
-
     max-width:
       calc(100% - 14px);
 
     max-height:
       calc(100% - 14px);
 
-    width:
-      auto;
-
-    height:
-      auto;
-
-    object-fit:
-      contain;
-
     border-radius:
       15px;
   }
 
-  .final-card p {
+  .photo-lightbox {
+    padding:
+      18px;
+  }
 
+  .photo-lightbox img {
+    max-width:
+      94vw;
+
+    max-height:
+      82vh;
+  }
+
+  .close-photo {
+    top:
+      15px;
+
+    right:
+      15px;
+  }
+
+  .final-card p {
     font-size:
       1.28rem;
   }
 }
 
-/* =========================================
-   ACCESSIBILITY
-========================================= */
+/* =========================
+   REDUCED MOTION
+========================= */
 
 @media (prefers-reduced-motion: reduce) {
 
   *,
   *::before,
   *::after {
-
-    scroll-behavior:
-      auto !important;
-
     animation-duration:
       .01ms !important;
 
@@ -1749,5 +1313,8 @@ p:not(.eyebrow):not(.signature) {
 
     transition-duration:
       .01ms !important;
+
+    scroll-behavior:
+      auto !important;
   }
 }

@@ -1,294 +1,811 @@
-const openBtn = document.getElementById("openBtn");
-const surprise = document.getElementById("surprise");
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const openBtn =
+  document.getElementById("openBtn");
+
+const surprise =
+  document.getElementById("surprise");
+
+const hero =
+  document.querySelector(".hero");
+
+const heartsContainer =
+  document.querySelector(".hearts");
+
+const photoLightbox =
+  document.getElementById("photoLightbox");
+
+const lightboxImage =
+  document.getElementById("lightboxImage");
+
+const closePhoto =
+  document.getElementById("closePhoto");
+
 
 /* =========================================
    OPEN SURPRISE
 ========================================= */
 
-openBtn.addEventListener("click", () => {
+openBtn.addEventListener(
+  "click",
+  (event) => {
 
-  surprise.classList.remove("hidden");
+    /*
+       1. Button ripple
+    */
 
-  openBtn.textContent = "The surprise is open ❤️";
-  openBtn.disabled = true;
+    createRipple(event);
 
-  // Small burst of hearts
-  for (let i = 0; i < 28; i++) {
-    setTimeout(createHeart, i * 80);
+
+    /*
+       2. Cinematic flash
+    */
+
+    createCinematicFlash();
+
+
+    /*
+       3. Disable button
+    */
+
+    openBtn.disabled =
+      true;
+
+
+    /*
+       4. Special heart burst
+    */
+
+    createHeartBurst();
+
+
+    /*
+       5. Small cinematic delay
+       before revealing content
+    */
+
+    setTimeout(
+      () => {
+
+        /*
+           Show surprise section
+        */
+
+        surprise.classList.remove(
+          "hidden"
+        );
+
+
+        /*
+           Fade hero away
+        */
+
+        hero.classList.add(
+          "hero-fade"
+        );
+
+
+        /*
+           Change button text
+        */
+
+        openBtn.textContent =
+          "The surprise is open ❤️";
+
+
+        /*
+           Reveal all sections
+           one by one
+        */
+
+        revealSections();
+
+
+        /*
+           Reveal individual photos
+        */
+
+        revealPhotos();
+
+
+        /*
+           Scroll to first section
+        */
+
+        setTimeout(
+          () => {
+
+            surprise.scrollIntoView({
+              behavior:
+                "smooth",
+
+              block:
+                "start"
+            });
+
+          },
+          180
+        );
+
+      },
+      500
+    );
+
   }
-
-  // Reveal cards one after another
-  const cards = surprise.querySelectorAll(".card, .final-card");
-
-  cards.forEach((card, index) => {
-    setTimeout(() => {
-      card.classList.add("reveal");
-    }, 150 + index * 180);
-  });
-
-  // Scroll elegantly to first message
-  setTimeout(() => {
-    surprise.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }, 80);
-});
+);
 
 
 /* =========================================
-   FLOATING HEARTS
+   REVEAL MAIN SECTIONS
+========================================= */
+
+function revealSections() {
+
+  const cards =
+    surprise.querySelectorAll(
+      ".card, .final-card"
+    );
+
+
+  cards.forEach(
+    (card, index) => {
+
+      /*
+         Slow enough that the
+         animation is actually
+         visible.
+      */
+
+      setTimeout(
+        () => {
+
+          card.classList.add(
+            "reveal"
+          );
+
+        },
+        650 +
+        index * 520
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   REVEAL PHOTOS
+========================================= */
+
+function revealPhotos() {
+
+  const photos =
+    document.querySelectorAll(
+      ".photo-placeholder"
+    );
+
+
+  /*
+     Wait until gallery card
+     has started appearing.
+  */
+
+  photos.forEach(
+    (photo, index) => {
+
+      setTimeout(
+        () => {
+
+          photo.classList.add(
+            "photo-reveal"
+          );
+
+        },
+
+        /*
+           Photos appear individually.
+        */
+
+        2500 +
+        index * 420
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   CINEMATIC FLASH
+========================================= */
+
+function createCinematicFlash() {
+
+  const flash =
+    document.createElement(
+      "div"
+    );
+
+
+  flash.className =
+    "cinematic-flash";
+
+
+  document.body.appendChild(
+    flash
+  );
+
+
+  setTimeout(
+    () => {
+
+      flash.remove();
+
+    },
+    1300
+  );
+
+}
+
+
+/* =========================================
+   BUTTON RIPPLE
+========================================= */
+
+function createRipple(event) {
+
+  const ripple =
+    document.createElement(
+      "span"
+    );
+
+
+  ripple.style.position =
+    "absolute";
+
+  ripple.style.width =
+    "10px";
+
+  ripple.style.height =
+    "10px";
+
+  ripple.style.borderRadius =
+    "50%";
+
+  ripple.style.background =
+    "rgba(255,255,255,.38)";
+
+  ripple.style.transform =
+    "translate(-50%, -50%)";
+
+  ripple.style.left =
+    event.offsetX + "px";
+
+  ripple.style.top =
+    event.offsetY + "px";
+
+  ripple.style.pointerEvents =
+    "none";
+
+  ripple.style.animation =
+    "rippleEffect .8s ease-out forwards";
+
+
+  openBtn.appendChild(
+    ripple
+  );
+
+
+  setTimeout(
+    () => {
+
+      ripple.remove();
+
+    },
+    800
+  );
+
+}
+
+
+/* =========================================
+   PARTICLES
 ========================================= */
 
 function createHeart() {
 
-  const heart = document.createElement("div");
+  if (!heartsContainer) {
+    return;
+  }
 
-  heart.className = "heart";
+
+  const particle =
+    document.createElement(
+      "div"
+    );
+
+
+  particle.className =
+    "heart";
+
 
   const symbols = [
-    "♥",
     "♡",
     "✦",
     "✧",
-    "⋆"
+    "⋆",
+    "♥"
   ];
 
-  heart.textContent =
-    symbols[Math.floor(Math.random() * symbols.length)];
 
-  heart.style.left =
-    Math.random() * 100 + "vw";
+  particle.textContent =
+    symbols[
+      Math.floor(
+        Math.random() *
+        symbols.length
+      )
+    ];
 
-  heart.style.fontSize =
-    10 + Math.random() * 23 + "px";
 
-  heart.style.animationDuration =
-    6 + Math.random() * 5 + "s";
+  particle.style.left =
+    Math.random() *
+      100 +
+    "vw";
 
-  heart.style.animationDelay =
-    Math.random() * 1.5 + "s";
 
-  heart.style.opacity =
-    .15 + Math.random() * .45;
+  particle.style.fontSize =
+    10 +
+    Math.random() *
+      22 +
+    "px";
 
-  document.querySelector(".hearts").appendChild(heart);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 12000);
+  particle.style.animationDuration =
+    7 +
+    Math.random() *
+      5 +
+    "s";
+
+
+  particle.style.opacity =
+    .15 +
+    Math.random() *
+      .38;
+
+
+  heartsContainer.appendChild(
+    particle
+  );
+
+
+  setTimeout(
+    () => {
+
+      particle.remove();
+
+    },
+    13000
+  );
+
 }
 
 
-/* Initial subtle floating particles */
-for (let i = 0; i < 12; i++) {
-  setTimeout(createHeart, i * 400);
+/*
+   Very small number initially.
+*/
+
+for (
+  let i = 0;
+  i < 8;
+  i++
+) {
+
+  setTimeout(
+    createHeart,
+    i * 500
+  );
+
 }
 
 
-/* Continue subtle hearts */
-setInterval(createHeart, 1300);
+/*
+   Slow background particles.
+*/
+
+setInterval(
+  createHeart,
+  1700
+);
+
+
+/* =========================================
+   HEART BURST
+========================================= */
+
+function createHeartBurst() {
+
+  for (
+    let i = 0;
+    i < 35;
+    i++
+  ) {
+
+    setTimeout(
+      createHeart,
+      i * 60
+    );
+
+  }
+
+}
 
 
 /* =========================================
    COUNTDOWN
-   Birthday = 22 September
 ========================================= */
 
 function updateCountdown() {
 
-  const now = new Date();
+  const now =
+    new Date();
 
-  let year = now.getFullYear();
 
-  let birthday = new Date(
-    year,
-    8,       // September
-    22,
-    0,
-    0,
-    0
-  );
+  let year =
+    now.getFullYear();
 
-  // If this year's birthday has passed,
-  // count toward next year's birthday.
-  if (now >= birthday) {
-    birthday = new Date(
-      year + 1,
+
+  /*
+     September = month 8
+  */
+
+  let birthday =
+    new Date(
+      year,
       8,
       22,
       0,
       0,
       0
     );
+
+
+  /*
+     Next year's birthday
+     after this one passes.
+  */
+
+  if (
+    now >= birthday
+  ) {
+
+    birthday =
+      new Date(
+        year + 1,
+        8,
+        22,
+        0,
+        0,
+        0
+      );
+
   }
 
-  const diff = birthday - now;
+
+  const difference =
+    birthday - now;
+
 
   const days =
-    Math.floor(diff / 86400000);
+    Math.floor(
+      difference /
+      86400000
+    );
+
 
   const hours =
-    Math.floor(diff / 3600000) % 24;
+    Math.floor(
+      difference /
+      3600000
+    ) % 24;
+
 
   const minutes =
-    Math.floor(diff / 60000) % 60;
+    Math.floor(
+      difference /
+      60000
+    ) % 60;
+
 
   const seconds =
-    Math.floor(diff / 1000) % 60;
+    Math.floor(
+      difference /
+      1000
+    ) % 60;
 
 
-  document.getElementById("days").textContent =
+  document.getElementById(
+    "days"
+  ).textContent =
     days;
 
-  document.getElementById("hours").textContent =
-    String(hours).padStart(2, "0");
 
-  document.getElementById("minutes").textContent =
-    String(minutes).padStart(2, "0");
+  document.getElementById(
+    "hours"
+  ).textContent =
+    String(hours)
+      .padStart(
+        2,
+        "0"
+      );
 
-  document.getElementById("seconds").textContent =
-    String(seconds).padStart(2, "0");
+
+  document.getElementById(
+    "minutes"
+  ).textContent =
+    String(minutes)
+      .padStart(
+        2,
+        "0"
+      );
+
+
+  document.getElementById(
+    "seconds"
+  ).textContent =
+    String(seconds)
+      .padStart(
+        2,
+        "0"
+      );
+
 }
+
 
 updateCountdown();
 
-setInterval(updateCountdown, 1000);
+
+setInterval(
+  updateCountdown,
+  1000
+);
+
+
+/* =========================================
+   LIGHTBOX
+========================================= */
+
+const photos =
+  document.querySelectorAll(
+    ".photo-placeholder img"
+  );
+
+
+photos.forEach(
+  (photo) => {
+
+    photo.addEventListener(
+      "click",
+      (event) => {
+
+        event.stopPropagation();
+
+
+        lightboxImage.src =
+          photo.src;
+
+
+        lightboxImage.alt =
+          photo.alt;
+
+
+        photoLightbox.classList.add(
+          "active"
+        );
+
+
+        photoLightbox.setAttribute(
+          "aria-hidden",
+          "false"
+        );
+
+
+        document.body.style.overflow =
+          "hidden";
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================
+   CLOSE LIGHTBOX
+========================================= */
+
+function closeLightbox() {
+
+  photoLightbox.classList.remove(
+    "active"
+  );
+
+
+  photoLightbox.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+
+  lightboxImage.src =
+    "";
+
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+closePhoto.addEventListener(
+  "click",
+  closeLightbox
+);
+
+
+/*
+   Click outside image
+*/
+
+photoLightbox.addEventListener(
+  "click",
+  (event) => {
+
+    if (
+      event.target ===
+      photoLightbox
+    ) {
+
+      closeLightbox();
+
+    }
+
+  }
+);
+
+
+/*
+   ESC
+*/
+
+document.addEventListener(
+  "keydown",
+  (event) => {
+
+    if (
+      event.key ===
+      "Escape"
+    ) {
+
+      if (
+        photoLightbox.classList.contains(
+          "active"
+        )
+      ) {
+
+        closeLightbox();
+
+      }
+
+    }
+
+  }
+);
 
 
 /* =========================================
    SCROLL REVEAL
-   Makes cards appear naturally when
-   scrolling, while preserving the
-   surprise effect.
+   Backup for normal scrolling
 ========================================= */
 
-const observer =
+const revealObserver =
   new IntersectionObserver(
     (entries) => {
 
-      entries.forEach((entry) => {
+      entries.forEach(
+        (entry) => {
 
-        if (entry.isIntersecting) {
+          if (
+            entry.isIntersecting
+          ) {
 
-          entry.target.classList.add("reveal");
+            entry.target.classList.add(
+              "reveal"
+            );
 
-          observer.unobserve(entry.target);
+            revealObserver.unobserve(
+              entry.target
+            );
+
+          }
+
         }
-
-      });
+      );
 
     },
     {
-      threshold: 0.16
+      threshold:
+        0.12
     }
   );
 
 
 document
-  .querySelectorAll(".card, .final-card")
-  .forEach((card) => {
+  .querySelectorAll(
+    ".card, .final-card"
+  )
+  .forEach(
+    (card) => {
 
-    observer.observe(card);
+      revealObserver.observe(
+        card
+      );
 
-  });
-
-
-/* =========================================
-   BUTTON CLICK RIPPLE
-========================================= */
-
-openBtn.addEventListener("click", function (event) {
-
-  const ripple =
-    document.createElement("span");
-
-  ripple.style.position = "absolute";
-  ripple.style.width = "10px";
-  ripple.style.height = "10px";
-  ripple.style.borderRadius = "50%";
-  ripple.style.background = "rgba(255,255,255,.35)";
-  ripple.style.transform = "translate(-50%, -50%)";
-  ripple.style.left = event.offsetX + "px";
-  ripple.style.top = event.offsetY + "px";
-  ripple.style.pointerEvents = "none";
-  ripple.style.animation = "rippleEffect .7s ease-out forwards";
-
-  this.appendChild(ripple);
-
-  setTimeout(() => {
-    ripple.remove();
-  }, 700);
-});
+    }
+  );
 
 
 /* =========================================
-   ADD RIPPLE ANIMATION DYNAMICALLY
+   DESKTOP HERO PARALLAX
 ========================================= */
 
-const rippleStyle =
-  document.createElement("style");
-
-rippleStyle.textContent = `
-@keyframes rippleEffect {
-  from {
-    width: 10px;
-    height: 10px;
-    opacity: .8;
-  }
-
-  to {
-    width: 260px;
-    height: 260px;
-    opacity: 0;
-  }
-}
-`;
-
-document.head.appendChild(rippleStyle);
-
-
-/* =========================================
-   GENTLE PARALLAX EFFECT
-   Only on larger screens.
-========================================= */
-
-if (window.innerWidth > 700) {
+if (
+  window.innerWidth >
+  700
+) {
 
   window.addEventListener(
     "scroll",
     () => {
 
-      const hero =
-        document.querySelector(".hero");
+      /*
+         Don't interfere once
+         the hero has faded out.
+      */
 
-      if (!hero) return;
+      if (
+        hero.classList.contains(
+          "hero-fade"
+        )
+      ) {
+
+        return;
+
+      }
+
 
       const scroll =
         window.scrollY;
 
-      hero.style.transform =
-        `translateY(${scroll * 0.08}px)`;
 
-      hero.style.opacity =
-        Math.max(
-          0,
-          1 - scroll / 700
-        );
+      if (
+        scroll <
+        window.innerHeight
+      ) {
+
+        hero.style.transform =
+          `translateY(${scroll * .06}px)`;
+
+      }
 
     },
-    { passive: true }
+    {
+      passive:
+        true
+    }
   );
 
 }
-
-
-/* =========================================
-   PAGE LOAD POLISH
-========================================= */
-
-window.addEventListener("load", () => {
-
-  document.body.classList.add("loaded");
-
-});
