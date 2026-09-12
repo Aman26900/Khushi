@@ -2648,3 +2648,950 @@ button:active {
   .entry-13 { left: 4%; bottom: 24%; }
   .entry-14 { right: 4%; bottom: 22%; }
 }
+
+
+/* =========================================================
+   INTERACTIVE BIRTHDAY JOURNEY
+   Added without removing the existing website styling.
+========================================================= */
+
+.birthday-journey {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: none;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(151, 59, 111, .20), transparent 34%),
+    radial-gradient(circle at 10% 80%, rgba(76, 35, 91, .16), transparent 30%),
+    linear-gradient(145deg, #07050b, #120918 52%, #060409);
+  isolation: isolate;
+}
+
+.birthday-journey.journey-visible {
+  display: block;
+  animation: journeyFadeIn .8s ease both;
+}
+
+.birthday-journey.journey-exit {
+  animation: journeyFadeOut .85s ease both;
+}
+
+.journey-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 22px 70px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.035);
+  transition:
+    opacity .8s cubic-bezier(.22,1,.36,1),
+    transform .95s cubic-bezier(.22,1,.36,1),
+    visibility 0s linear .95s;
+}
+
+.journey-screen.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1);
+  transition-delay: 0s;
+}
+
+.journey-screen::before,
+.journey-screen::after {
+  content: "✦";
+  position: absolute;
+  color: rgba(255,255,255,.22);
+  font-size: 14px;
+  animation: journeyTwinkle 3.5s ease-in-out infinite;
+}
+
+.journey-screen::before {
+  top: 18%;
+  left: 13%;
+}
+
+.journey-screen::after {
+  right: 14%;
+  bottom: 20%;
+  animation-delay: -1.7s;
+}
+
+.journey-glow {
+  position: absolute;
+  width: min(70vw, 600px);
+  height: min(70vw, 600px);
+  border-radius: 50%;
+  background: rgba(166, 64, 117, .11);
+  filter: blur(95px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.journey-content {
+  width: min(720px, 100%);
+  text-align: center;
+  position: relative;
+  z-index: 4;
+  animation: journeyContentIn 1s cubic-bezier(.22,1,.36,1) both;
+}
+
+.journey-kicker {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font: 500 .65rem/1.5 "Montserrat", sans-serif;
+  color: rgba(255,255,255,.56);
+  margin-bottom: 24px;
+}
+
+.journey-content h2 {
+  font: 500 clamp(3.2rem, 9vw, 6.7rem)/.88 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: -2px;
+  text-shadow: 0 20px 70px rgba(0,0,0,.5);
+}
+
+.journey-content h2 span {
+  font-style: italic;
+  background: linear-gradient(135deg, #fff 12%, #f5c7d8 56%, #c982a1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.journey-copy {
+  margin: 25px auto 30px;
+  color: rgba(255,255,255,.64);
+  font: 400 1.05rem/1.7 "Cormorant Garamond", Georgia, serif;
+}
+
+.journey-btn {
+  min-width: 190px;
+  margin-top: 6px;
+  padding: 15px 25px;
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.035));
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.34),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 0 0 rgba(205, 93, 143, 0);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  font: 500 .7rem "Montserrat", sans-serif;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: transform .35s ease, box-shadow .35s ease, background .35s ease;
+}
+
+.journey-btn span {
+  margin-left: 8px;
+}
+
+.journey-btn:hover {
+  transform: translateY(-4px) scale(1.025);
+  background: rgba(255,255,255,.14);
+  box-shadow:
+    0 22px 60px rgba(0,0,0,.4),
+    0 0 35px rgba(196, 88, 137, .16);
+}
+
+.journey-btn:active {
+  transform: scale(.98);
+}
+
+.journey-btn:disabled {
+  opacity: .8;
+  cursor: default;
+}
+
+.journey-progress {
+  position: absolute;
+  bottom: 31px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 8;
+}
+
+.journey-progress span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.24);
+  transition: width .35s ease, background .35s ease, box-shadow .35s ease;
+}
+
+.journey-progress span.active {
+  width: 22px;
+  border-radius: 999px;
+  background: rgba(246,201,217,.82);
+  box-shadow: 0 0 14px rgba(246,201,217,.30);
+}
+
+.bond-words {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 38px auto 35px;
+  flex-wrap: wrap;
+  font: 500 clamp(1.25rem, 3vw, 1.7rem) "Cormorant Garamond", Georgia, serif;
+  color: rgba(255,255,255,.88);
+}
+
+.bond-words i {
+  color: rgba(246,201,217,.52);
+  font-style: normal;
+}
+
+.celebration-title .journey-copy {
+  margin-bottom: 31px;
+}
+
+/* =========================================================
+   LIGHTS SCENE
+========================================================= */
+
+.lights-scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.light-bulb {
+  position: absolute;
+  top: 7%;
+  width: 13px;
+  height: 17px;
+  border-radius: 50% 50% 45% 45%;
+  background: #19131b;
+  box-shadow: 0 0 0 rgba(255,219,144,0);
+  transition: background .9s ease, box-shadow .9s ease, transform .9s ease;
+}
+
+.light-bulb::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 14px;
+  width: 7px;
+  height: 7px;
+  border-radius: 0 0 4px 4px;
+  background: #29212a;
+}
+
+.bulb-1 { left: 17%; }
+.bulb-2 { left: 39%; top: 11%; }
+.bulb-3 { right: 39%; top: 10%; }
+.bulb-4 { right: 17%; }
+
+.lights-on .light-bulb {
+  background: #fff1c4;
+  box-shadow:
+    0 0 14px rgba(255,219,144,.9),
+    0 0 40px rgba(255,194,95,.58),
+    0 0 90px rgba(255,170,75,.25);
+  transform: scale(1.12);
+}
+
+.celebration-lights-on {
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255,192,100,.12), transparent 30%),
+    radial-gradient(circle at 50% 60%, rgba(167,64,116,.20), transparent 42%),
+    linear-gradient(145deg, #09060b, #1a0c18 52%, #09050a);
+}
+
+/* =========================================================
+   BALLOONS
+========================================================= */
+
+.balloon-screen {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(160,66,119,.17), transparent 42%);
+}
+
+.celebration-sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(255,255,255,.045), transparent 22%),
+    radial-gradient(circle at 15% 45%, rgba(198,90,141,.06), transparent 20%),
+    radial-gradient(circle at 85% 55%, rgba(198,90,141,.06), transparent 20%);
+}
+
+.balloon-stage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.celebration-balloon {
+  position: absolute;
+  bottom: -245px;
+  width: 86px;
+  height: 125px;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: balloonRise 2.2s cubic-bezier(.2,.8,.25,1) forwards;
+}
+
+.balloon-body {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 76px;
+  height: 95px;
+  transform: translateX(-50%);
+  border-radius: 50% 50% 46% 46% / 54% 54% 43% 43%;
+  background:
+    radial-gradient(circle at 29% 23%, rgba(255,255,255,.70) 0 5%, transparent 6%),
+    linear-gradient(145deg, #d886a5, #9b456e 72%, #71314f);
+  box-shadow:
+    inset -10px -13px 18px rgba(55,10,33,.18),
+    0 18px 38px rgba(0,0,0,.30),
+    0 0 28px rgba(202,104,148,.12);
+}
+
+.balloon-2 .balloon-body {
+  background:
+    radial-gradient(circle at 29% 23%, rgba(255,255,255,.72) 0 5%, transparent 6%),
+    linear-gradient(145deg, #e4a9bc, #a65c80 72%, #763a57);
+}
+
+.balloon-3 .balloon-body {
+  background:
+    radial-gradient(circle at 29% 23%, rgba(255,255,255,.72) 0 5%, transparent 6%),
+    linear-gradient(145deg, #c9a2b7, #80516e 72%, #5a334c);
+}
+
+.balloon-4 .balloon-body {
+  background:
+    radial-gradient(circle at 29% 23%, rgba(255,255,255,.72) 0 5%, transparent 6%),
+    linear-gradient(145deg, #f0c2d1, #b8688c 72%, #783e5a);
+}
+
+.balloon-knot {
+  position: absolute;
+  left: 50%;
+  top: 91px;
+  width: 12px;
+  height: 12px;
+  transform: translateX(-50%) rotate(45deg);
+  background: #873a5c;
+}
+
+.balloon-string {
+  position: absolute;
+  left: 50%;
+  top: 101px;
+  width: 1px;
+  height: 135px;
+  transform-origin: top;
+  background: rgba(255,255,255,.20);
+}
+
+.balloon-shine {
+  position: absolute;
+  left: 19px;
+  top: 19px;
+  width: 12px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.16);
+  transform: rotate(22deg);
+  filter: blur(1px);
+}
+
+.celebration-balloon.balloon-bursting {
+  animation: balloonBurst .48s ease forwards !important;
+}
+
+.balloon-burst-particle {
+  position: fixed;
+  z-index: 700;
+  pointer-events: none;
+  color: rgba(246,201,217,.95);
+  font-size: 12px;
+  animation: burstParticle .85s cubic-bezier(.18,.78,.22,1) forwards;
+}
+
+.balloon-content {
+  z-index: 6;
+}
+
+.balloon-content h2 {
+  transition: transform .7s ease, opacity .7s ease;
+}
+
+.message-reveal {
+  animation: messageReveal .9s cubic-bezier(.22,1,.36,1) both;
+}
+
+.hidden-control {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.hidden-control:not(.journey-btn) {
+  display: none;
+}
+
+.balloon-next {
+  margin-top: 20px;
+}
+
+.balloon-confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 7px;
+  height: 11px;
+  border-radius: 1px;
+  background: rgba(246,201,217,.88);
+  animation: confettiFall 1.9s cubic-bezier(.18,.75,.25,1) forwards;
+}
+
+.confetti-piece:nth-child(3n) { width: 5px; height: 8px; background: rgba(255,255,255,.76); }
+.confetti-piece:nth-child(4n) { border-radius: 50%; }
+.confetti-piece:nth-child(5n) { background: rgba(203,142,169,.88); }
+
+/* =========================================================
+   CAKE
+========================================================= */
+
+.cake-screen {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(179,72,122,.15), transparent 32%);
+}
+
+.cake-content h2 {
+  font-size: clamp(2.9rem, 8vw, 5.7rem);
+}
+
+.cake-wrap {
+  position: relative;
+  width: 290px;
+  height: 215px;
+  margin: 18px auto 6px;
+}
+
+.cake-plate {
+  position: absolute;
+  left: 50%;
+  bottom: 9px;
+  width: 265px;
+  height: 28px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: linear-gradient(180deg, #3a2434, #1b0f1b);
+  border: 1px solid rgba(255,255,255,.13);
+  box-shadow: 0 16px 35px rgba(0,0,0,.45);
+}
+
+.cake {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  width: 210px;
+  height: 145px;
+  transform: translateX(-50%);
+}
+
+.cake-top,
+.cake-middle,
+.cake-bottom {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: inset 0 4px 12px rgba(255,255,255,.08), 0 8px 22px rgba(0,0,0,.22);
+}
+
+.cake-top {
+  top: 45px;
+  width: 190px;
+  height: 37px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #f2d1da, #b66a88);
+  z-index: 4;
+}
+
+.cake-middle {
+  top: 64px;
+  width: 190px;
+  height: 45px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #a95b7c, #713c58);
+  z-index: 3;
+}
+
+.cake-bottom {
+  top: 91px;
+  width: 205px;
+  height: 42px;
+  border-radius: 9px;
+  background: linear-gradient(180deg, #713b57, #472638);
+  z-index: 2;
+}
+
+.cake-drip {
+  position: absolute;
+  top: 62px;
+  width: 18px;
+  height: 31px;
+  border-radius: 0 0 12px 12px;
+  background: #f0c8d5;
+  z-index: 5;
+  box-shadow: 0 3px 7px rgba(0,0,0,.12);
+}
+
+.drip-1 { left: 70px; }
+.drip-2 { left: 108px; height: 24px; }
+.drip-3 { left: 144px; height: 34px; }
+
+.cake-candle {
+  position: absolute;
+  top: 3px;
+  width: 9px;
+  height: 46px;
+  border-radius: 4px 4px 2px 2px;
+  background: repeating-linear-gradient(135deg, #f5d3df 0 5px, #a95a7c 5px 9px);
+  z-index: 7;
+}
+
+.candle-left { left: 69px; }
+.candle-center { left: 100px; }
+.candle-right { right: 69px; }
+
+.flame {
+  position: absolute;
+  left: 50%;
+  top: -23px;
+  width: 13px;
+  height: 20px;
+  transform: translateX(-50%);
+  border-radius: 60% 40% 55% 45%;
+  background: radial-gradient(circle at 50% 72%, #fff6bf 0 25%, #ffc55e 26% 55%, #e78059 56% 100%);
+  box-shadow: 0 0 10px rgba(255,195,93,.8), 0 0 26px rgba(255,171,79,.38);
+  animation: candleFlicker .8s ease-in-out infinite alternate;
+}
+
+.cake-cut .cake {
+  animation: cakeCelebrate .9s cubic-bezier(.22,1,.36,1) both;
+}
+
+.cake-cut .cake-top {
+  transform: translateX(-50%) rotate(-3deg) translateY(-5px);
+}
+
+.cake-cut .cake-middle {
+  transform: translateX(-50%) rotate(2deg) translateY(3px);
+}
+
+.cake-cut .flame {
+  opacity: 0;
+  transform: translateX(-50%) scale(.2) translateY(10px);
+  transition: opacity .3s ease, transform .35s ease;
+}
+
+.cake-cut .cake-candle {
+  animation: candleBlown .5s ease forwards;
+}
+
+.special-message-btn {
+  display: block;
+  margin: 14px auto 0;
+}
+
+/* =========================================================
+   JOURNEY ANIMATIONS
+========================================================= */
+
+@keyframes journeyFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes journeyFadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.025); }
+}
+
+@keyframes journeyContentIn {
+  from { opacity: 0; transform: translateY(28px) scale(.98); filter: blur(7px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes journeyTwinkle {
+  0%, 100% { opacity: .18; transform: scale(.8) rotate(0); }
+  50% { opacity: .75; transform: scale(1.18) rotate(12deg); }
+}
+
+@keyframes balloonRise {
+  0% { opacity: 0; transform: translateX(-50%) translateY(35px) scale(.82); }
+  15% { opacity: 1; }
+  100% { opacity: 1; transform: translateX(-50%) translateY(-42vh) scale(1); }
+}
+
+@keyframes balloonBurst {
+  0% { opacity: 1; transform: translateX(-50%) scale(1); }
+  65% { opacity: 1; transform: translateX(-50%) scale(1.14); }
+  100% { opacity: 0; transform: translateX(-50%) scale(1.55); filter: blur(3px); }
+}
+
+@keyframes burstParticle {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(.7); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--burst-x)), calc(-50% + var(--burst-y))) scale(.15) rotate(160deg); }
+}
+
+@keyframes messageReveal {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes confettiFall {
+  0% { opacity: 0; transform: translate(-50%, -50%) rotate(0deg) scale(.7); }
+  12% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--confetti-x)), var(--confetti-y)) rotate(var(--confetti-rotate)) scale(1); }
+}
+
+@keyframes candleFlicker {
+  from { transform: translateX(-50%) scale(.94) rotate(-2deg); }
+  to { transform: translateX(-50%) scale(1.06) rotate(2deg); }
+}
+
+@keyframes candleBlown {
+  to { transform: translateY(-4px) rotate(8deg); opacity: .78; }
+}
+
+@keyframes cakeCelebrate {
+  0% { transform: translateX(-50%) scale(1); }
+  45% { transform: translateX(-50%) scale(1.06) rotate(-1deg); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+/* =========================================================
+   JOURNEY MOBILE
+========================================================= */
+
+@media screen and (max-width: 700px) {
+  .birthday-journey {
+    background:
+      radial-gradient(circle at 50% 16%, rgba(151,59,111,.20), transparent 38%),
+      linear-gradient(180deg, #08050a 0%, #130914 52%, #080408 100%);
+  }
+
+  .journey-screen {
+    padding: 25px 17px 65px;
+  }
+
+  .journey-content h2 {
+    font-size: clamp(2.75rem, 14vw, 4.7rem);
+    line-height: .92;
+    letter-spacing: -1px;
+  }
+
+  .journey-kicker {
+    font-size: .54rem;
+    letter-spacing: 2.8px;
+    margin-bottom: 20px;
+  }
+
+  .journey-copy {
+    font-size: 1rem;
+    margin-top: 21px;
+  }
+
+  .journey-btn {
+    min-width: 185px;
+    min-height: 50px;
+    padding: 14px 21px;
+    background: linear-gradient(135deg, rgba(53,25,48,.96), rgba(29,14,29,.98));
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .bond-words {
+    gap: 8px;
+    margin: 30px auto 29px;
+    font-size: 1.2rem;
+    max-width: 320px;
+  }
+
+  .bond-words i {
+    font-size: .75rem;
+  }
+
+  .journey-progress {
+    bottom: 24px;
+    gap: 7px;
+  }
+
+  .journey-progress span.active {
+    width: 19px;
+  }
+
+  .journey-glow {
+    width: 80vw;
+    height: 80vw;
+    filter: blur(65px);
+  }
+
+  .light-bulb {
+    top: 8%;
+    width: 10px;
+    height: 14px;
+  }
+
+  .light-bulb::after {
+    top: 12px;
+    left: 2px;
+    width: 6px;
+    height: 6px;
+  }
+
+  .bulb-1 { left: 11%; }
+  .bulb-2 { left: 32%; }
+  .bulb-3 { right: 32%; }
+  .bulb-4 { right: 11%; }
+
+  .celebration-balloon {
+    width: 66px;
+    height: 100px;
+  }
+
+  .balloon-body {
+    width: 61px;
+    height: 78px;
+  }
+
+  .balloon-knot {
+    top: 74px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .balloon-string {
+    top: 83px;
+    height: 110px;
+  }
+
+  .balloon-content h2 {
+    font-size: clamp(2.8rem, 13vw, 4.3rem);
+  }
+
+  .cake-wrap {
+    transform: scale(.83);
+    margin-top: 4px;
+    margin-bottom: -16px;
+  }
+
+  .cake-content h2 {
+    font-size: clamp(2.55rem, 12vw, 4rem);
+  }
+
+  .cake-content .journey-copy {
+    margin-top: 7px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .journey-content h2 {
+    font-size: clamp(2.45rem, 13.5vw, 4rem);
+  }
+
+  .bond-words {
+    font-size: 1.1rem;
+    max-width: 290px;
+  }
+
+  .cake-wrap {
+    transform: scale(.72);
+    margin-top: -7px;
+    margin-bottom: -35px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .birthday-journey *,
+  .birthday-journey *::before,
+  .birthday-journey *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+
+/* Candles are intentionally already blown out when the cake page opens. */
+.candles-blown .flame {
+  opacity: 0;
+  transform: translateX(-50%) scale(.18) translateY(10px);
+  animation: none;
+}
+
+.candles-blown .cake-candle {
+  opacity: .78;
+}
+
+
+/* =========================================================
+   BALLOON WORD REVEAL
+   One word appears after each balloon bursts.
+========================================================= */
+
+.balloon-word {
+  position: absolute;
+  left: 50%;
+  top: 17%;
+  z-index: 9;
+  min-width: 150px;
+  text-align: center;
+  transform: translate(-50%, 14px) scale(.88);
+  opacity: 0;
+  pointer-events: none;
+  color: rgba(255,255,255,.96);
+  font: 600 clamp(3.6rem, 10vw, 6.4rem)/.9 "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  letter-spacing: -2px;
+  text-shadow: 0 10px 45px rgba(0,0,0,.42), 0 0 35px rgba(246,201,217,.18);
+  transition: opacity .45s ease, transform .55s cubic-bezier(.22,1,.36,1);
+}
+.balloon-word::after { content: ""; position: absolute; left: 50%; bottom: -12px; width: 46px; height: 1px; transform: translateX(-50%); background: linear-gradient(90deg, transparent, rgba(246,201,217,.55), transparent); }
+.balloon-word-visible { opacity: 1; transform: translate(-50%, 0) scale(1); animation: balloonWordGlow 1.4s ease both; }
+@keyframes balloonWordGlow { from { filter: blur(7px); } to { filter: blur(0); } }
+
+/* =========================================================
+   IMPROVED CAKE
+   More elegant layered cake with frosting and details.
+========================================================= */
+
+.cake-wrap { width: 330px; height: 235px; margin: 12px auto 4px; perspective: 900px; }
+.cake-plate { width: 290px; height: 31px; bottom: 8px; background: radial-gradient(ellipse at 50% 25%, rgba(255,255,255,.14), transparent 42%), linear-gradient(180deg, #4b3042, #1a0e19); box-shadow: 0 17px 35px rgba(0,0,0,.48), 0 0 30px rgba(193,87,133,.08); }
+.cake { width: 225px; height: 160px; bottom: 30px; transform: translateX(-50%); filter: drop-shadow(0 16px 18px rgba(0,0,0,.25)); transform-origin: 50% 100%; transition: filter .5s ease; }
+.cake-top, .cake-middle, .cake-bottom { box-shadow: inset 0 5px 13px rgba(255,255,255,.09), inset 0 -8px 16px rgba(40,8,25,.14), 0 8px 22px rgba(0,0,0,.20); }
+.cake-top { top: 48px; width: 202px; height: 42px; border-radius: 50%; background: radial-gradient(ellipse at 50% 28%, rgba(255,255,255,.36), transparent 38%), linear-gradient(180deg, #ffe7ef 0%, #e9a9bd 62%, #bd6c8b 100%); z-index: 6; }
+.cake-middle { top: 67px; width: 202px; height: 49px; border-radius: 10px; background: linear-gradient(90deg, rgba(255,255,255,.06), transparent 24%, rgba(255,255,255,.08) 50%, transparent 76%), linear-gradient(180deg, #b96988, #7b3f5d); z-index: 3; }
+.cake-bottom { top: 100px; width: 216px; height: 47px; border-radius: 11px; background: linear-gradient(90deg, rgba(255,255,255,.04), transparent 22%, rgba(255,255,255,.06) 52%, transparent 78%), linear-gradient(180deg, #82435f, #4e283e); z-index: 2; }
+.cake-frosting { position: absolute; left: 50%; top: 76px; width: 201px; height: 19px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(ellipse at 20% 30%, rgba(255,255,255,.65), transparent 18%), linear-gradient(180deg, #fff1f5, #efc0cf); z-index: 5; box-shadow: 0 4px 10px rgba(0,0,0,.13); }
+.cake-frosting::after { content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 13px; background: radial-gradient(circle at 12px 0, transparent 0 7px, #efc0cf 8px 100%); opacity: .96; }
+.cake-drip { top: 80px; width: 18px; height: 31px; border-radius: 0 0 12px 12px; background: linear-gradient(180deg, #ffeaf1, #e7a6bb); z-index: 7; box-shadow: 0 3px 8px rgba(0,0,0,.13); }
+.drip-1 { left: 66px; height: 29px; } .drip-2 { left: 106px; height: 38px; } .drip-3 { left: 148px; height: 25px; }
+.cake-decoration { position: absolute; z-index: 8; width: 9px; height: 9px; border-radius: 50%; background: #fff1f5; box-shadow: 0 0 9px rgba(246,201,217,.35); }
+.decoration-1 { left: 77px; top: 101px; } .decoration-2 { left: 99px; top: 111px; width: 7px; height: 7px; } .decoration-3 { left: 121px; top: 100px; width: 8px; height: 8px; } .decoration-4 { left: 145px; top: 111px; width: 7px; height: 7px; } .decoration-5 { left: 164px; top: 101px; }
+.cake-candle { top: 3px; width: 10px; height: 49px; border-radius: 5px 5px 3px 3px; background: repeating-linear-gradient(135deg, #fff0f5 0 5px, #b96888 5px 9px); box-shadow: 0 4px 9px rgba(0,0,0,.18); }
+.candle-left { left: 72px; } .candle-center { left: 107px; } .candle-right { right: 72px; }
+.cake-knife { position: absolute; z-index: 12; top: 28px; left: 50%; width: 7px; height: 115px; border-radius: 5px; transform: translate(-50%, -125px) rotate(22deg); transform-origin: 50% 10%; opacity: 0; pointer-events: none; background: linear-gradient(90deg, #9da0a6, #f4f5f7 45%, #888b92); box-shadow: 2px 4px 9px rgba(0,0,0,.32); }
+.cake-knife::after { content: ""; position: absolute; left: 50%; bottom: -32px; width: 16px; height: 42px; transform: translateX(-50%); border-radius: 7px; background: linear-gradient(90deg, #27202a, #6e5263, #221b24); }
+.cake-cut .cake-knife { animation: cakeKnifeCut 1.05s cubic-bezier(.22,1,.36,1) forwards; }
+.cake-cut .cake { animation: cakeCuttle .95s cubic-bezier(.22,1,.36,1) both; }
+.cake-cut .cake-top { animation: cakeTopSeparate .95s .18s cubic-bezier(.22,1,.36,1) both; }
+.cake-cut .cake-middle { animation: cakeMiddleSeparate .95s .18s cubic-bezier(.22,1,.36,1) both; }
+.cake-cut .cake-bottom { animation: cakeBottomSettle .95s .18s cubic-bezier(.22,1,.36,1) both; }
+.cake-cut .cake-frosting { animation: frostingSeparate .95s .18s cubic-bezier(.22,1,.36,1) both; }
+@keyframes cakeKnifeCut { 0% { opacity: 0; transform: translate(-50%, -125px) rotate(22deg); } 18% { opacity: 1; } 58% { opacity: 1; transform: translate(-50%, 30px) rotate(22deg); } 100% { opacity: 0; transform: translate(-50%, 76px) rotate(22deg); } }
+@keyframes cakeCuttle { 0% { transform: translateX(-50%) scale(1); } 35% { transform: translateX(-50%) scale(1.035); } 100% { transform: translateX(-50%) scale(1); } }
+@keyframes cakeTopSeparate { 0% { transform: translateX(-50%); } 100% { transform: translateX(calc(-50% - 7px)) rotate(-2deg) translateY(-3px); } }
+@keyframes cakeMiddleSeparate { 0% { transform: translateX(-50%); } 100% { transform: translateX(calc(-50% + 5px)) rotate(1deg) translateY(2px); } }
+@keyframes cakeBottomSettle { 0% { transform: translateX(-50%); } 100% { transform: translateX(-50%) translateY(3px); } }
+@keyframes frostingSeparate { 0% { transform: translateX(-50%); } 100% { transform: translateX(calc(-50% - 5px)) translateY(-3px); } }
+
+.candles-blown .flame { opacity: 0; transform: translateX(-50%) scale(.12) translateY(12px); animation: none; }
+.candles-blown .cake-candle { opacity: .78; }
+
+@media screen and (max-width: 700px) {
+  .balloon-word { top: 16%; font-size: clamp(3.2rem, 15vw, 5rem); }
+  .cake-wrap { width: 315px; height: 225px; transform: scale(.88); margin-top: -2px; margin-bottom: -9px; }
+}
+@media screen and (max-width: 390px) {
+  .cake-wrap { transform: scale(.76); margin-top: -12px; margin-bottom: -28px; }
+}
+
+
+/* =========================================================
+   BALLOON WORDS — WORD REPLACES ITS OWN BALLOON
+========================================================= */
+.balloon-word-pop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 40;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%) scale(.72);
+  transform-origin: center center;
+  opacity: 0;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-style: italic;
+  line-height: .82;
+  letter-spacing: -0.5px;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 0 4px 16px rgba(0,0,0,.45), 0 0 18px rgba(246,201,217,.24);
+  transition: opacity .28s ease, transform .45s cubic-bezier(.22,1,.36,1);
+}
+
+.balloon-word-pop-visible {
+  opacity: 1 !important;
+  transform: translate(-50%, -50%) scale(1) !important;
+}
+
+/* All four balloons rise together to their own horizontal positions. */
+.celebration-balloon {
+  bottom: auto;
+  top: 38%;
+  animation-name: balloonRiseToPosition;
+}
+
+@keyframes balloonRiseToPosition {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(48vh) scale(.82);
+  }
+  18% { opacity: 1; }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .balloon-word-pop {
+    letter-spacing: -.35px;
+  }
+
+  .celebration-balloon {
+    top: 36%;
+  }
+}
+.button-clicked-hide {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(8px) scale(.96) !important;
+  transition:
+    opacity .35s ease,
+    transform .35s ease,
+    visibility 0s linear .35s !important;
+}

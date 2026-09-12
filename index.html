@@ -25,11 +25,145 @@
   ></div>
 
   <audio
-  id="birthdayAudio"
-  src="Audio.mp3"
-  preload="auto"
-></audio>
+    id="birthdayAudio"
+    src="Audio.mp3"
+    preload="auto"
+  ></audio>
 
+
+  <!-- ==================================
+       INTERACTIVE BIRTHDAY JOURNEY
+       Added before the existing site content.
+  =================================== -->
+
+  <section id="birthdayJourney" class="birthday-journey" aria-hidden="true">
+
+    <!-- STEP 1 -->
+    <div class="journey-screen active" data-step="1">
+      <div class="journey-glow"></div>
+      <div class="journey-content">
+        <p class="journey-kicker">A little thought from me</p>
+        <h2>Our bond in<br><span>Three Words</span></h2>
+
+        <div class="bond-words">
+          <span>Comfort</span>
+          <i>•</i>
+          <span>Understanding</span>
+          <i>•</i>
+          <span>Sweet</span>
+        </div>
+
+        <button type="button" class="journey-btn" data-next="2">Next <span>→</span></button>
+      </div>
+      <div class="journey-progress"><span class="active"></span><span></span><span></span><span></span><span></span></div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="journey-screen" data-step="2">
+      <div class="journey-glow"></div>
+      <div class="journey-content">
+        <p class="journey-kicker">Something that is hard to explain</p>
+        <h2>The vibe<br><span>between us</span></h2>
+
+        <p class="journey-copy"><div><span>Sweet</span><br>
+          <span>&</span><br />
+          <span>Warm</span>✦</p><br>
+          </div>
+
+        <button type="button" class="journey-btn" data-next="3">Next <span>→</span></button>
+      </div>
+      <div class="journey-progress"><span></span><span class="active"></span><span></span><span></span><span></span></div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="journey-screen" data-step="3">
+      <div class="journey-glow birthday-glow"></div>
+      <div class="journey-content celebration-title">
+        <p class="journey-kicker">Today is all about you</p>
+        <h2>Happy Birthday,<br><span>Khushi ❤️</span></h2>
+        <p class="journey-copy">Let's make this moment special.</p>
+        <button type="button" class="journey-btn" data-next="4">Let's celebrate <span>✦</span></button>
+      </div>
+      <div class="journey-progress"><span></span><span></span><span class="active"></span><span></span><span></span></div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="journey-screen" data-step="4">
+      <div class="journey-glow"></div>
+      <div class="lights-scene">
+        <div class="light-bulb bulb-1"></div>
+        <div class="light-bulb bulb-2"></div>
+        <div class="light-bulb bulb-3"></div>
+        <div class="light-bulb bulb-4"></div>
+      </div>
+      <div class="journey-content lights-content">
+        <p class="journey-kicker">Before the celebration begins...</p>
+        <h2>Turn on<br><span>the lights</span></h2>
+        <p class="journey-copy">Let's brighten this little world for you.</p>
+        <button type="button" id="lightsBtn" class="journey-btn">Turn on the lights <span>💡</span></button>
+      </div>
+      <div class="journey-progress"><span></span><span></span><span></span><span class="active"></span><span></span></div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="journey-screen balloon-screen" data-step="5">
+      <div class="celebration-sky"></div>
+      <div id="balloonStage" class="balloon-stage" aria-hidden="true"></div>
+      <div id="balloonConfetti" class="balloon-confetti" aria-hidden="true"></div>
+
+      <!-- Balloon burst word overlay: You → are → so → special -->
+      <div id="balloonWord" class="balloon-word" aria-live="polite"></div>
+
+      <div class="journey-content balloon-content">
+        <p class="journey-kicker">A little celebration just for you</p>
+        <h2 id="balloonHeading">Let's make<br><span>some wishes</span></h2>
+        <p id="balloonMessage" class="journey-copy">Watch closely... 🎈</p>
+        <button type="button" id="balloonNextBtn" class="journey-btn balloon-next hidden-control">Next <span>→</span></button>
+      </div>
+      <div class="journey-progress"><span></span><span></span><span></span><span></span><span class="active"></span></div>
+    </div>
+
+    <!-- CAKE PAGE -->
+    <div class="journey-screen cake-screen" data-step="6">
+      <div class="cake-sparkles" aria-hidden="true"></div>
+      <div id="cakeConfetti" class="balloon-confetti" aria-hidden="true"></div>
+      <div class="journey-content cake-content">
+        <p class="journey-kicker">And now...</p>
+        <h2>Happy Birthday<br><span>Khushi 🎂</span></h2>
+
+        <div class="cake-wrap" aria-label="Birthday cake">
+          <div class="cake-plate"></div>
+          <div class="cake">
+            <div class="cake-candle candle-left"><span class="flame"></span></div>
+            <div class="cake-candle candle-center"><span class="flame"></span></div>
+            <div class="cake-candle candle-right"><span class="flame"></span></div>
+
+            <div class="cake-top"></div>
+            <div class="cake-middle"></div>
+            <div class="cake-bottom"></div>
+
+            <div class="cake-frosting"></div>
+            <div class="cake-drip drip-1"></div>
+            <div class="cake-drip drip-2"></div>
+            <div class="cake-drip drip-3"></div>
+
+            <div class="cake-decoration decoration-1"></div>
+            <div class="cake-decoration decoration-2"></div>
+            <div class="cake-decoration decoration-3"></div>
+            <div class="cake-decoration decoration-4"></div>
+            <div class="cake-decoration decoration-5"></div>
+
+            <div class="cake-knife" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <p id="cakeMessage" class="journey-copy">Make a wish... then cut the cake. ✨</p>
+        <button type="button" id="cutCakeBtn" class="journey-btn">Cut the cake <span>🔪</span></button>
+        <button type="button" id="specialMessageBtn" class="journey-btn special-message-btn hidden-control">A special message for you <span>❤️</span></button>
+      </div>
+    </div>
+
+  </section>
 
   <main>
 
@@ -103,7 +237,7 @@
         </div>
 
         <p class="eyebrow">
-          A special message 
+          A message from me to you
         </p>
 
         <h2>
@@ -227,11 +361,11 @@
             <span>03</span>
 
             <h3>
-              Your kindness
+              Our future
             </h3>
 
             <p>
-              Because the way you care for the people around you says so much about the beautiful person you are.
+              Because the thought of all the memories still waiting for us makes me smile.
             </p>
           </div>
 
