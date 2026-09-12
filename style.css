@@ -1,63 +1,778 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
 
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  min-height:100vh;
-  color:#fff;
-  background:radial-gradient(circle at 50% 0%,#5d2448 0,#241126 42%,#0e0713 100%);
-  font-family:Montserrat,Arial,sans-serif;
-  overflow-x:hidden;
+:root {
+  --bg-dark: #08050a;
+  --bg-mid: #170b18;
+  --wine: #5a1f43;
+  --rose: #b96785;
+  --soft-white: rgba(255,255,255,.9);
+  --muted-white: rgba(255,255,255,.62);
+  --glass: rgba(255,255,255,.055);
+  --border: rgba(255,255,255,.14);
+  --shadow: rgba(0,0,0,.45);
 }
-main{width:min(100%,1000px);margin:auto;padding:30px 18px 70px}
-.hero{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative}
-.eyebrow{text-transform:uppercase;letter-spacing:3px;font-size:.72rem;opacity:.72;margin-bottom:18px}
-h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif}
-h1{font-size:clamp(3.1rem,10vw,6.5rem);line-height:.9;font-weight:600}
-h1 span{font-style:italic}
-.subtitle{margin:28px 0;font-size:.9rem;letter-spacing:6px;text-transform:uppercase;opacity:.8}
-button{
-  border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:15px 25px;
-  color:#fff;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
-  font:600 .8rem Montserrat;letter-spacing:1px;cursor:pointer;transition:.3s
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-button:hover{transform:translateY(-3px);background:rgba(255,255,255,.18)}
-.hidden{display:none}
-.card,.final-card{
-  margin:22px auto;padding:40px 28px;border:1px solid rgba(255,255,255,.14);
-  border-radius:28px;background:rgba(255,255,255,.065);backdrop-filter:blur(14px);
-  box-shadow:0 20px 60px rgba(0,0,0,.22);text-align:center
+
+html {
+  scroll-behavior: smooth;
 }
-.card h2{font-size:clamp(2rem,5vw,3.4rem);margin-bottom:20px}
-.message-card{max-width:760px}
-.message-card p:not(.eyebrow):not(.signature){font-family:"Cormorant Garamond",Georgia,serif;font-size:1.35rem;line-height:1.6;margin:14px auto;max-width:650px}
-.sparkle{font-size:2rem;margin-bottom:15px}
-.signature{margin-top:28px!important;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.3rem;line-height:1.6}
-.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:650px;margin:28px auto 15px}
-.countdown div{padding:18px 8px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(0,0,0,.12)}
-.countdown strong{display:block;font:600 clamp(1.8rem,6vw,3rem) "Cormorant Garamond",Georgia,serif}
-.countdown span{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;opacity:.65}
-.small{font-size:.75rem;opacity:.58}
-.reason-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;text-align:left}
-.reason-grid div{padding:24px;border-radius:20px;background:rgba(0,0,0,.13)}
-.reason-grid span{font-size:.7rem;opacity:.55}
-.reason-grid h3{font-size:1.8rem;margin:8px 0}
-.reason-grid p{font-size:.82rem;line-height:1.6;opacity:.72}
-.photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:25px}
-.photo-placeholder{min-height:230px;border-radius:20px;display:flex;align-items:center;justify-content:center;
-  border:1px dashed rgba(255,255,255,.28);background:rgba(255,255,255,.04);font-family:"Cormorant Garamond";font-size:1.5rem}
-.final-card{padding:65px 25px;margin-top:30px}
-.big-heart{font-size:4rem;animation:pulse 1.5s infinite}
-.final-card h2{font-size:3rem;margin:10px}
-.final-card p{font-family:"Cormorant Garamond";font-size:1.35rem;margin:10px}
-.final-line{font-style:italic}
-.heart{position:fixed;bottom:-30px;pointer-events:none;animation:float 7s linear forwards;opacity:.5;z-index:-1}
-@keyframes float{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
-@keyframes pulse{50%{transform:scale(1.12)}}
-@media(max-width:650px){
-  .hero{min-height:82vh}
-  .card{padding:30px 18px}
-  .countdown{gap:6px}
-  .reason-grid,.photo-grid{grid-template-columns:1fr}
-  .photo-placeholder{min-height:180px}
+
+body {
+  min-height: 100vh;
+  color: #fff;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(145, 48, 94, .34), transparent 35%),
+    radial-gradient(circle at 0% 45%, rgba(90, 31, 67, .18), transparent 35%),
+    radial-gradient(circle at 100% 70%, rgba(105, 36, 78, .15), transparent 34%),
+    linear-gradient(145deg, var(--bg-dark), var(--bg-mid) 48%, #090509);
+  font-family: "Montserrat", Arial, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Cinematic grain */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: .025;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+}
+
+/* Soft ambient light */
+body::after {
+  content: "";
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  top: -300px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(174, 62, 112, .12);
+  filter: blur(110px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+main {
+  width: min(100%, 1050px);
+  margin: auto;
+  padding: 25px 18px 90px;
+}
+
+/* ================================
+   HERO
+================================ */
+
+.hero {
+  min-height: 94vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  padding: 20px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: rgba(156, 52, 105, .09);
+  filter: blur(80px);
+  z-index: -1;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: .68rem;
+  font-weight: 500;
+  opacity: .58;
+  margin-bottom: 20px;
+  animation: fadeUp 1.2s ease both;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+h1 {
+  font-size: clamp(3.5rem, 10vw, 7.3rem);
+  line-height: .86;
+  font-weight: 500;
+  letter-spacing: -2px;
+  text-shadow: 0 10px 45px rgba(0,0,0,.3);
+  animation: heroTitle 1.4s cubic-bezier(.22,1,.36,1) both;
+}
+
+h1 span {
+  display: inline-block;
+  font-style: italic;
+  background: linear-gradient(135deg, #fff 15%, #f6c9d9 55%, #c989a5 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  margin: 32px 0 34px;
+  font-size: .68rem;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.62);
+  animation: fadeUp 1.5s .25s ease both;
+}
+
+/* Decorative line above button */
+.hero::after {
+  content: "✦";
+  position: absolute;
+  bottom: 8%;
+  font-size: 13px;
+  opacity: .35;
+  animation: floatSymbol 4s ease-in-out infinite;
+}
+
+button {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.26);
+  border-radius: 999px;
+  padding: 16px 30px;
+  color: #fff;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,.08),
+      rgba(255,255,255,.14),
+      rgba(255,255,255,.07)
+    );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  font: 500 .72rem "Montserrat", sans-serif;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    background .35s ease;
+  animation: fadeUp 1.5s .45s ease both;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  transform: skewX(-25deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.18),
+    transparent
+  );
+  transition: left .7s ease;
+}
+
+button:hover::before {
+  left: 150%;
+}
+
+button:hover {
+  transform: translateY(-4px) scale(1.025);
+  background: rgba(255,255,255,.12);
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.35),
+    0 0 35px rgba(188,87,133,.09);
+}
+
+button:active {
+  transform: translateY(-1px) scale(.99);
+}
+
+/* ================================
+   HIDDEN / REVEAL
+================================ */
+
+.hidden {
+  display: none;
+}
+
+/* ================================
+   CARDS
+================================ */
+
+.card,
+.final-card {
+  position: relative;
+  margin: 26px auto;
+  padding: 48px 34px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.075),
+      rgba(255,255,255,.025)
+    );
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 25px 70px var(--shadow),
+    inset 0 1px 0 rgba(255,255,255,.06);
+
+  text-align: center;
+
+  opacity: 0;
+  transform: translateY(45px);
+  transition:
+    opacity .9s ease,
+    transform .9s cubic-bezier(.22,1,.36,1),
+    border-color .35s ease;
+}
+
+.card.reveal,
+.final-card.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card::before,
+.final-card::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,.045),
+      transparent 30%,
+      transparent 70%,
+      rgba(255,255,255,.025)
+    );
+}
+
+.card:hover {
+  border-color: rgba(255,255,255,.21);
+}
+
+.card h2 {
+  position: relative;
+  font-size: clamp(2.15rem, 5vw, 3.65rem);
+  line-height: .98;
+  font-weight: 500;
+  margin-bottom: 22px;
+  letter-spacing: -.5px;
+}
+
+.message-card {
+  max-width: 780px;
+}
+
+.message-card .sparkle {
+  font-size: 1.65rem;
+  margin-bottom: 18px;
+  opacity: .7;
+  animation: sparklePulse 2.5s ease-in-out infinite;
+}
+
+.message-card p:not(.eyebrow):not(.signature) {
+  position: relative;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.42rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,.83);
+  margin: 17px auto;
+  max-width: 670px;
+}
+
+.signature {
+  margin-top: 30px !important;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,.86);
+}
+
+.signature strong {
+  font-weight: 600;
+}
+
+/* ================================
+   COUNTDOWN
+================================ */
+
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 700px;
+  margin: 30px auto 17px;
+}
+
+.countdown div {
+  position: relative;
+  padding: 21px 8px 18px;
+  border: 1px solid rgba(255,255,255,.11);
+  border-radius: 20px;
+  background: rgba(0,0,0,.16);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+  transition: transform .3s ease, border-color .3s ease;
+}
+
+.countdown div:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255,255,255,.2);
+}
+
+.countdown strong {
+  display: block;
+  font:
+    600 clamp(2rem, 6vw, 3.3rem)
+    "Cormorant Garamond",
+    Georgia,
+    serif;
+  line-height: 1;
+}
+
+.countdown span {
+  display: block;
+  margin-top: 8px;
+  font-size: .58rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: .5;
+}
+
+.small {
+  font-size: .72rem;
+  line-height: 1.7;
+  color: var(--muted-white);
+}
+
+/* ================================
+   REASONS
+================================ */
+
+.reason-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.reason-grid div {
+  position: relative;
+  padding: 27px 24px 24px;
+  min-height: 190px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 22px;
+  background: rgba(0,0,0,.13);
+  transition:
+    transform .4s cubic-bezier(.22,1,.36,1),
+    border-color .3s ease;
+}
+
+.reason-grid div::after {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  right: -65px;
+  bottom: -65px;
+  background: rgba(194,87,133,.08);
+  filter: blur(25px);
+}
+
+.reason-grid div:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255,255,255,.18);
+}
+
+.reason-grid span {
+  font-size: .64rem;
+  letter-spacing: 2px;
+  opacity: .38;
+}
+
+.reason-grid h3 {
+  font-size: 1.95rem;
+  font-weight: 500;
+  margin: 8px 0 9px;
+}
+
+.reason-grid p {
+  font-size: .79rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,.61);
+}
+
+/* ================================
+   GALLERY
+================================ */
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 27px;
+}
+
+.photo-placeholder {
+  position: relative;
+  min-height: 245px;
+  border-radius: 22px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px dashed rgba(255,255,255,.22);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.015)
+    );
+
+  color: rgba(255,255,255,.67);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.55rem;
+  transition:
+    transform .45s cubic-bezier(.22,1,.36,1),
+    border-color .35s ease,
+    background .35s ease;
+}
+
+.photo-placeholder::before {
+  content: "♡";
+  position: absolute;
+  top: 17px;
+  right: 19px;
+  font-size: 1rem;
+  opacity: .25;
+}
+
+.photo-placeholder:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255,255,255,.35);
+  background: rgba(255,255,255,.06);
+}
+
+/* ================================
+   FINAL CARD
+================================ */
+
+.final-card {
+  padding: 72px 28px;
+  margin-top: 35px;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 25%,
+      rgba(155,48,95,.18),
+      transparent 50%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.08),
+      rgba(255,255,255,.025)
+    );
+}
+
+.final-card::after {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  top: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(192,71,122,.08);
+  filter: blur(65px);
+}
+
+.big-heart {
+  position: relative;
+  z-index: 2;
+  font-size: 4.2rem;
+  line-height: 1;
+  color: rgba(255,255,255,.92);
+  text-shadow:
+    0 0 25px rgba(199,91,139,.45),
+    0 0 55px rgba(199,91,139,.18);
+  animation: heartBeat 1.8s ease-in-out infinite;
+}
+
+.final-card h2 {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(2.7rem, 7vw, 4.4rem);
+  font-weight: 500;
+  margin: 18px 0;
+}
+
+.final-card p {
+  position: relative;
+  z-index: 2;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.42rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,.77);
+  margin: 12px auto;
+  max-width: 670px;
+}
+
+.final-line {
+  font-style: italic;
+  color: rgba(255,255,255,.87) !important;
+}
+
+/* ================================
+   FLOATING HEARTS
+================================ */
+
+.hearts {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  pointer-events: none;
+  color: rgba(255,255,255,.4);
+  animation: floatHeart 7s linear forwards;
+  filter: drop-shadow(0 0 8px rgba(218,120,160,.2));
+}
+
+/* ================================
+   ANIMATIONS
+================================ */
+
+@keyframes heroTitle {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(.97);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sparklePulse {
+  0%, 100% {
+    opacity: .45;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  15% {
+    transform: scale(1.07);
+  }
+
+  30% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.1);
+  }
+
+  60% {
+    transform: scale(1);
+  }
+}
+
+@keyframes floatHeart {
+  0% {
+    transform:
+      translateY(0)
+      translateX(0)
+      rotate(0deg)
+      scale(.8);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: .65;
+  }
+
+  50% {
+    transform:
+      translateY(-55vh)
+      translateX(20px)
+      rotate(120deg)
+      scale(1);
+  }
+
+  100% {
+    transform:
+      translateY(-115vh)
+      translateX(-35px)
+      rotate(300deg)
+      scale(.7);
+    opacity: 0;
+  }
+}
+
+@keyframes floatSymbol {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: .25;
+  }
+
+  50% {
+    transform: translateY(-10px);
+    opacity: .55;
+  }
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 700px) {
+
+  main {
+    padding: 15px 13px 70px;
+  }
+
+  .hero {
+    min-height: 88vh;
+    padding: 18px;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 16vw, 5rem);
+    letter-spacing: -1px;
+  }
+
+  .eyebrow {
+    font-size: .58rem;
+    letter-spacing: 3px;
+  }
+
+  .subtitle {
+    margin: 26px 0 31px;
+    letter-spacing: 5px;
+    font-size: .58rem;
+  }
+
+  .card,
+  .final-card {
+    padding: 34px 18px;
+    border-radius: 25px;
+  }
+
+  .message-card p:not(.eyebrow):not(.signature) {
+    font-size: 1.27rem;
+    line-height: 1.6;
+  }
+
+  .countdown {
+    gap: 7px;
+  }
+
+  .countdown div {
+    padding: 16px 5px 15px;
+    border-radius: 16px;
+  }
+
+  .countdown span {
+    font-size: .49rem;
+    letter-spacing: 1px;
+  }
+
+  .reason-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reason-grid div {
+    min-height: auto;
+  }
+
+  .photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-placeholder {
+    min-height: 190px;
+  }
+
+  .final-card p {
+    font-size: 1.28rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
 }
