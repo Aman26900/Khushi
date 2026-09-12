@@ -23,6 +23,9 @@ const lightboxImage =
 const closePhoto =
   document.getElementById("closePhoto");
 
+const countdownMessage =
+  document.getElementById("countdownMessage");
+
 
 /* =========================================
    OPEN SURPRISE
@@ -32,87 +35,37 @@ openBtn.addEventListener(
   "click",
   (event) => {
 
-    /*
-       1. Button ripple
-    */
-
     createRipple(event);
 
-
-    /*
-       2. Cinematic flash
-    */
-
     createCinematicFlash();
-
-
-    /*
-       3. Disable button
-    */
 
     openBtn.disabled =
       true;
 
-
-    /*
-       4. Special heart burst
-    */
-
     createHeartBurst();
 
 
-    /*
-       5. Small cinematic delay
-       before revealing content
-    */
-
     setTimeout(
       () => {
-
-        /*
-           Show surprise section
-        */
 
         surprise.classList.remove(
           "hidden"
         );
 
 
-        /*
-           Fade hero away
-        */
-
         hero.classList.add(
           "hero-fade"
         );
 
 
-        /*
-           Change button text
-        */
-
         openBtn.textContent =
           "The surprise is open ❤️";
 
 
-        /*
-           Reveal all sections
-           one by one
-        */
-
         revealSections();
-
-
-        /*
-           Reveal individual photos
-        */
 
         revealPhotos();
 
-
-        /*
-           Scroll to first section
-        */
 
         setTimeout(
           () => {
@@ -152,12 +105,6 @@ function revealSections() {
   cards.forEach(
     (card, index) => {
 
-      /*
-         Slow enough that the
-         animation is actually
-         visible.
-      */
-
       setTimeout(
         () => {
 
@@ -188,11 +135,6 @@ function revealPhotos() {
     );
 
 
-  /*
-     Wait until gallery card
-     has started appearing.
-  */
-
   photos.forEach(
     (photo, index) => {
 
@@ -204,11 +146,6 @@ function revealPhotos() {
           );
 
         },
-
-        /*
-           Photos appear individually.
-        */
-
         2500 +
         index * 420
       );
@@ -454,6 +391,65 @@ function updateCountdown() {
     new Date();
 
 
+  const currentMonth =
+    now.getMonth();
+
+
+  const currentDay =
+    now.getDate();
+
+
+  /*
+     September 22 = birthday.
+
+     On September 22, the countdown
+     remains at zero for the entire day
+     instead of immediately starting
+     next year's countdown.
+  */
+
+  if (
+    currentMonth === 8 &&
+    currentDay === 22
+  ) {
+
+    document.getElementById(
+      "days"
+    ).textContent =
+      "00";
+
+
+    document.getElementById(
+      "hours"
+    ).textContent =
+      "00";
+
+
+    document.getElementById(
+      "minutes"
+    ).textContent =
+      "00";
+
+
+    document.getElementById(
+      "seconds"
+    ).textContent =
+      "00";
+
+
+    if (countdownMessage) {
+
+      countdownMessage.textContent =
+        "Today is your special day. Happy Birthday, Khushi! ❤️";
+
+    }
+
+
+    return;
+
+  }
+
+
   let year =
     now.getFullYear();
 
@@ -474,8 +470,8 @@ function updateCountdown() {
 
 
   /*
-     Next year's birthday
-     after this one passes.
+     After September 22,
+     count toward next year's birthday.
   */
 
   if (
@@ -562,6 +558,14 @@ function updateCountdown() {
         "0"
       );
 
+
+  if (countdownMessage) {
+
+    countdownMessage.textContent =
+      "Counting down to your birthday ✨";
+
+  }
+
 }
 
 
@@ -600,6 +604,16 @@ photos.forEach(
 
         lightboxImage.alt =
           photo.alt;
+
+
+        /*
+           IMPORTANT:
+           Remove the HTML hidden attribute
+           when opening the lightbox.
+        */
+
+        photoLightbox.hidden =
+          false;
 
 
         photoLightbox.classList.add(
@@ -644,6 +658,17 @@ function closeLightbox() {
     "";
 
 
+  /*
+     IMPORTANT:
+     Hide it again after closing.
+     This prevents "Expanded memory"
+     from appearing on the page.
+  */
+
+  photoLightbox.hidden =
+    true;
+
+
   document.body.style.overflow =
     "";
 
@@ -656,9 +681,9 @@ closePhoto.addEventListener(
 );
 
 
-/*
-   Click outside image
-*/
+/* =========================================
+   CLICK OUTSIDE IMAGE
+========================================= */
 
 photoLightbox.addEventListener(
   "click",
@@ -677,9 +702,9 @@ photoLightbox.addEventListener(
 );
 
 
-/*
-   ESC
-*/
+/* =========================================
+   ESC KEY
+========================================= */
 
 document.addEventListener(
   "keydown",
@@ -708,7 +733,6 @@ document.addEventListener(
 
 /* =========================================
    SCROLL REVEAL
-   Backup for normal scrolling
 ========================================= */
 
 const revealObserver =
